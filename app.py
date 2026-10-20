@@ -86,7 +86,7 @@ def login():
     error = None
     if request.method == "POST":
         password = request.form.get("password")
-        if password == "admin123":
+        if password == "Anjali@2624":
             session['logged_in'] = True
             return redirect(url_for('admin'))
         else:
