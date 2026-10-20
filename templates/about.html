@@ -4,6 +4,22 @@
     <meta charset="UTF-8">
     <title>About | Dr. Pavan Kumar Meena</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        .about-header {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+        .about-img {
+            width: 130px;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 3px solid #007bff;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+    </style>
 </head>
 <body>
     <div class="container" style="max-width: 750px;">
@@ -17,16 +33,31 @@
             <a href="{{ url_for('admin') }}">Admin</a>
         </nav>
         
-        <h1>About Me</h1>
+        <div class="about-header">
+            <img src="{{ url_for('static', filename='profile2.jpg') }}" alt="Dr. Pavan Kumar Meena" class="about-img">
+            <div>
+                <h1 style="margin: 0 0 5px 0; font-size: 26px;">About Me</h1>
+                <p style="color: #555; margin: 0; font-size: 14px; line-height: 1.5;">Senior Project Scientist (Postdoctoral Researcher)<br>School of Civil and Environmental Engineering, IIT Mandi</p>
+            </div>
+        </div>
         
         <div style="text-align: left; line-height: 1.6;">
             <h3>Research Profile</h3>
-            <p>Senior Project Scientist (Postdoctoral) at IIT Mandi specializing in earthquake geotechnics and disaster-resilient infrastructure. Currently leading the development of the Primer on Disaster Resilient Infrastructure (PODRI) in international collaboration with the University of Canterbury (New Zealand) and Durham University (UK). Backed by a Ph.D. from IIT Roorkee focused on the seismic stability analysis of geosynthetic-reinforced soil slopes.</p>
+            <p>I am currently serving as a Senior Project Scientist (Postdoctoral Researcher) at the Indian Institute of Technology (IIT) Mandi, specializing in earthquake geotechnics, soil dynamics, and disaster-resilient infrastructure. In this role, I am leading the development of the <strong>Primer on Disaster Resilient Infrastructure (PODRI)</strong> in close international collaboration with esteemed researchers.</p>
+            
+            <p>My collaborative and supervisory team includes:</p>
+            <ul>
+                <li><strong>Dr. Ashutosh Kumar</strong> (Associate Professor), School of Civil and Environmental Engineering, IIT Mandi, India</li>
+                <li><strong>Dr. Ellen Robson</strong>, University of Canterbury, New Zealand</li>
+                <li><strong>Prof. Bruce Malamud</strong>, Institute of Hazard, Risk and Resilience, Durham University, United Kingdom</li>
+            </ul>
+
+            <p>My foundational research expertise is backed by my Ph.D. in Geotechnical Engineering from the Indian Institute of Technology (IIT) Roorkee, where my doctoral dissertation focused on the advanced seismic stability analysis of geosynthetic-reinforced soil slopes, examining the complex impacts of tension cracks, pore water pressures, and dynamic loading conditions.</p>
             
             <h3>Education</h3>
             <ul>
-                <li><strong>Ph.D. in Geotechnical Engineering</strong> (Feb 2021 – Aug 2026)<br>Indian Institute of Technology (IIT) Roorkee<br><em>Thesis: Dynamic Stability Analysis of Reinforced Soil Slope Considering Tension Cracks</em></li>
-                <li><strong>M.Tech. in Geotechnical Engineering</strong> (Jul 2017 – Sep 2019)<br>National Institute of Technology (NIT) Kurukshetra<br><em>Thesis: A Study on Black Cotton Soil Reinforced with Nylon Fibers</em></li>
+                <li><strong>Ph.D. in Geotechnical Engineering</strong> (Feb 2021 – Aug 2026)<br>Indian Institute of Technology (IIT) Roorkee<br><em>Thesis: Dynamic Stability Analysis of Reinforced Soil Slope Considering Tension Cracks</em> (Supervisor: Dr. Kaustav Chatterjee)</li>
+                <li><strong>M.Tech. in Geotechnical Engineering</strong> (Jul 2017 – Sep 2019)<br>National Institute of Technology (NIT) Kurukshetra<br><em>Thesis: A Study on Black Cotton Soil Reinforced with Nylon Fibers</em> (Supervisor: Prof. Ashwani Jain)</li>
                 <li><strong>B.Tech. in Civil Engineering</strong> (Jul 2010 – Jun 2014)<br>Rajasthan Technical University</li>
             </ul>
 
