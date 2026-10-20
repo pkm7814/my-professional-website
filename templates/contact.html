@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Contact Us</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+<nav style="margin-bottom: 20px;">
+    <a href="{{ url_for('home') }}">Home</a> | 
+    <a href="{{ url_for('about') }}">About</a> | 
+    <a href="{{ url_for('research') }}">Research</a> | 
+    <a href="{{ url_for('gallery') }}">Gallery</a> | 
+    <a href="{{ url_for('contact') }}">Contact</a> | 
+    <a href="{{ url_for('admin') }}">Admin</a>
+</nav>
+        
+        <h1>Contact Me</h1>
+        
+        <form method="POST">
+            <label for="name">Your Name:</label><br>
+            <input type="text" id="name" name="name" required><br>
+            
+            <label for="email">Your Email:</label><br>
+            <input type="email" id="email" name="email" required><br>
+            
+            <label for="message">Your Message:</label><br>
+            <textarea id="message" name="message" rows="4" style="width: 80%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 4px;" required></textarea><br>
+            
+            <button type="submit">Send Message</button>
+        </form>
+
+        {% if success %}
+            <p style="color: green; font-weight: bold;">Thank you! Your message has been saved.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

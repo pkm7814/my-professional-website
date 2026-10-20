@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Publications & CV | Dr. Pavan Kumar Meena</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container" style="max-width: 750px;">
+        <nav style="margin-bottom: 20px;">
+            <a href="{{ url_for('home') }}">Home</a> | 
+            <a href="{{ url_for('about') }}">About</a> | 
+            <a href="{{ url_for('research') }}">Research</a> | 
+            <a href="{{ url_for('publications') }}">Publications</a> | 
+            <a href="{{ url_for('gallery') }}">Gallery</a> | 
+            <a href="{{ url_for('contact') }}">Contact</a> | 
+            <a href="{{ url_for('admin') }}">Admin</a>
+        </nav>
+        
+        <h1>Publications & Curriculum Vitae</h1>
+        
+        <div style="text-align: left; line-height: 1.6;">
+            <!-- CV Download Section -->
+            <div style="background: #f9f9f9; padding: 15px; border-radius: 6px; border: 1px solid #e1e4e8; margin-bottom: 30px;">
+                <h3 style="margin-top: 0;">Curriculum Vitae</h3>
+                <p>You can download my complete professional resume/CV detailing my academic history, projects, and technical proficiencies.</p>
+                <!-- To add your PDF, place your cv.pdf inside the static folder and link it here -->
+                <a href="{{ url_for('static', filename='cv.pdf') }}" target="_blank" style="display: inline-block; background: #007bff; color: white; padding: 8px 15px; text-decoration: none; border-radius: 4px; font-weight: bold;">Download Full CV (PDF)</a>
+            </div>
+
+            <h3>Journal Publications</h3>
+            <ul>
+                <li style="margin-bottom: 15px;">
+                    <strong>Meena, P. K.</strong>, et al. (202X). <em>[Title of your journal paper on geotechnical engineering / slope stability]</em>. Journal Name, Volume(Issue), Pages.
+                </li>
+                <!-- Add more journal entries here as needed -->
+            </ul>
+
+            <h3 style="margin-top: 30px;">Conference Proceedings</h3>
+            <ul>
+                <li style="margin-bottom: 15px;">
+                    <strong>Meena, P. K.</strong>, et al. (202X). <em>[Title of your conference paper]</em>. Proceedings of the International / National Conference (e.g., IACMAG, IGS), Location.
+                </li>
+                <!-- Add more conference entries here as needed -->
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

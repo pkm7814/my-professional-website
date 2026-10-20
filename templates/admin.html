@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container" style="max-width: 600px;">
+<nav style="margin-bottom: 20px;">
+    <a href="{{ url_for('home') }}">Home</a> | 
+    <a href="{{ url_for('about') }}">About</a> | 
+    <a href="{{ url_for('research') }}">Research</a> | 
+    <a href="{{ url_for('gallery') }}">Gallery</a> | 
+    <a href="{{ url_for('contact') }}">Contact</a> | 
+    <a href="{{ url_for('admin') }}">Admin</a>
+</nav>
+        
+        <h1>Admin Dashboard</h1>
+        
+        <h3 style="margin-top: 20px; text-align: left;">Stored Visitors:</h3>
+        <ul style="text-align: left;">
+            {% for v in visitors %}
+                <li>{{ v }}</li>
+            {% else %}
+                <p style="color: gray;">No visitors yet.</p>
+            {% endfor %}
+        </ul>
+
+        <h3 style="margin-top: 30px; text-align: left;">Contact Messages:</h3>
+        <div style="text-align: left;">
+            {% for msg in messages %}
+                <div style="background: #f9f9f9; padding: 10px; margin-bottom: 10px; border-radius: 4px; border: 1px solid #ddd;">
+                    <strong>Name:</strong> {{ msg[0] }}<br>
+                    <strong>Email:</strong> {{ msg[1] }}<br>
+                    <strong>Message:</strong> {{ msg[2] }}
+                </div>
+            {% else %}
+                <p style="color: gray;">No messages yet.</p>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

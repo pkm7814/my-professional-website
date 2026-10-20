@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>About | Dr. Pavan Kumar Meena</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container" style="max-width: 700px;">
+<nav style="margin-bottom: 20px;">
+    <a href="{{ url_for('home') }}">Home</a> | 
+    <a href="{{ url_for('about') }}">About</a> | 
+    <a href="{{ url_for('research') }}">Research</a> | 
+    <a href="{{ url_for('gallery') }}">Gallery</a> | 
+    <a href="{{ url_for('contact') }}">Contact</a> | 
+    <a href="{{ url_for('admin') }}">Admin</a>
+</nav>
+        
+        <h1>About Me</h1>
+        
+        <div style="text-align: left; line-height: 1.6;">
+            <h3>Professional Profile</h3>
+            <p>I am currently serving as a <strong>Senior Project Scientist</strong> in the School of Civil and Environmental Engineering at the <strong>Indian Institute of Technology (IIT) Mandi</strong>.</p>
+            
+            <h3>Education</h3>
+            <ul>
+                <li><strong>Ph.D. in Geotechnical Engineering</strong><br>Indian Institute of Technology (IIT) Roorkee</li>
+            </ul>
+
+            <h3>Professional Affiliations</h3>
+            <ul>
+                <li>Life Member, Indian Geotechnical Society (IGS)</li>
+                <li>Member, International Society for Soil Mechanics and Geotechnical Engineering (ISSMGE)</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
