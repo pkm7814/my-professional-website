@@ -36,6 +36,19 @@
             border: 3px solid #007bff;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
+        .social-links {
+            margin-top: 8px;
+            font-size: 13.5px;
+        }
+        .social-links a {
+            color: #007bff;
+            text-decoration: none;
+            margin-right: 12px;
+            font-weight: bold;
+        }
+        .social-links a:hover {
+            text-decoration: underline;
+        }
         .highlights-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -102,7 +115,14 @@
             <div>
                 <h1 style="margin: 0 0 5px 0; font-size: 28px; color: #222;">Dr. Pavan Kumar Meena</h1>
                 <p style="color: #007bff; font-weight: bold; font-size: 16px; margin: 0 0 5px 0;">Senior Project Scientist (Postdoctoral)</p>
-                <p style="color: #555; font-size: 13.5px; margin: 0; line-height: 1.5;">School of Civil and Environmental Engineering<br>Indian Institute of Technology (IIT) Mandi, India</p>
+                <p style="color: #555; font-size: 13.5px; margin: 0 0 6px 0; line-height: 1.5;">School of Civil and Environmental Engineering<br>Indian Institute of Technology (IIT) Mandi, India</p>
+                
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/in/pavan-kumar-meena-482494129/" target="_blank">LinkedIn</a>[cite: 6]
+                    <a href="https://scholar.google.com/citations?user=CL6PHzYAAAAJ&hl=en" target="_blank">Google Scholar</a>[cite: 6]
+                    <a href="https://orcid.org/0009-0003-1623-5090" target="_blank">ORCID</a>[cite: 6]
+                </div>
+
                 <div class="btn-group">
                     <a href="{{ url_for('publications') }}" class="btn">View Publications</a>
                     <a href="{{ url_for('contact') }}" class="btn btn-outline">Get in Touch</a>
@@ -113,7 +133,7 @@
         <hr style="border: 0; border-top: 1px solid #e1e4e8; margin: 25px 0;">
 
         <div style="text-align: left; line-height: 1.6;">
-            <h3 style="margin-top: 0; color: #333;">नमस्कार  & Welcome</h3>
+            <h3 style="margin-top: 0; color: #333;">नमस्कार (Namaskar) & Welcome</h3>
             <p style="color: #444; font-size: 14.5px;">I specialize in <strong>Geotechnical Engineering</strong>, focusing on disaster-resilient infrastructure, seismic slope stability, and numerical modeling. Currently leading the development of the Primer on Disaster Resilient Infrastructure (PODRI) in international collaboration with the University of Canterbury (New Zealand) and Durham University (UK).</p>
         </div>
 
