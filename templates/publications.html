@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Publications & CV | Dr. Pavan Kumar Meena</title>
+    <title>Publications | Dr. Pavan Kumar Meena</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
@@ -17,32 +17,46 @@
             <a href="{{ url_for('admin') }}">Admin</a>
         </nav>
         
-        <h1>Publications & Curriculum Vitae</h1>
+        <h1>Publications & CV</h1>
         
         <div style="text-align: left; line-height: 1.6;">
-            <!-- CV Download Section -->
             <div style="background: #f9f9f9; padding: 15px; border-radius: 6px; border: 1px solid #e1e4e8; margin-bottom: 30px;">
                 <h3 style="margin-top: 0;">Curriculum Vitae</h3>
-                <p>You can download my complete professional resume/CV detailing my academic history, projects, and technical proficiencies.</p>
-                <!-- To add your PDF, place your cv.pdf inside the static folder and link it here -->
+                <p>Download my complete professional resume detailing my academic history, projects, and credentials.</p>
                 <a href="{{ url_for('static', filename='cv.pdf') }}" target="_blank" style="display: inline-block; background: #007bff; color: white; padding: 8px 15px; text-decoration: none; border-radius: 4px; font-weight: bold;">Download Full CV (PDF)</a>
             </div>
 
-            <h3>Journal Publications</h3>
-            <ul>
-                <li style="margin-bottom: 15px;">
-                    <strong>Meena, P. K.</strong>, et al. (202X). <em>[Title of your journal paper on geotechnical engineering / slope stability]</em>. Journal Name, Volume(Issue), Pages.
+            <h3>Journal Papers</h3>
+            <ol style="padding-left: 20px;">
+                <li style="margin-bottom: 12px;">
+                    <strong>Meena, P. K.</strong> and Chatterjee, K. (2025). "A limit equilibrium based pseudo-static approach to investigate the role of tension cracks and water forces on internal stability of geosynthetic reinforced soil slopes." <em>Geotechnical and Geological Engineering (Springer)</em>, 43(409). DOI: 10.1007/s10706-025-03387-6[cite: 10]
                 </li>
-                <!-- Add more journal entries here as needed -->
-            </ul>
+                <li style="margin-bottom: 12px;">
+                    <strong>Meena, P. K.</strong> and Chatterjee, K. (2024). "Effect of tension crack formation on external seismic stability analysis of geosynthetic reinforced soil slopes." <em>International Journal of Geomechanics (ASCE)</em>, 24(6). DOI: 10.1061/IJGNAI.GMENG-9092[cite: 10]
+                </li>
+                <li style="margin-bottom: 12px;">
+                    <strong>Meena, P. K.</strong> and Chatterjee, K. (2026). "Strain dependent ground response analysis and its effect on dynamic internal stability of reinforced soil slopes with tension cracks." <em>Soil Dynamics and Earthquake Engineering, Elsevier</em> (Under Review)[cite: 10].
+                </li>
+                <li style="margin-bottom: 12px;">
+                    <strong>Meena, P. K.</strong> and Chatterjee, K. (2026). "A strain dependent modified pseudo-dynamic based approach for external stability analysis of reinforced soil slope considering tension cracks." <em>Natural Hazards Review, ASCE</em> (Under Review)[cite: 10].
+                </li>
+            </ol>
 
             <h3 style="margin-top: 30px;">Conference Proceedings</h3>
-            <ul>
-                <li style="margin-bottom: 15px;">
-                    <strong>Meena, P. K.</strong>, et al. (202X). <em>[Title of your conference paper]</em>. Proceedings of the International / National Conference (e.g., IACMAG, IGS), Location.
+            <ol style="padding-left: 20px;">
+                <li style="margin-bottom: 12px;">
+                    <strong>Meena, P. K.</strong> and Chatterjee, K. (2026). "Internal stability analysis of geosynthetic reinforced steep soil slopes considering the effect of tension cracks", <em>Proceedings of 17th IACMAG Conference, Hong Kong</em>[cite: 10]. DOI: 10.1007/978-981-95-5969-526[cite: 10]
                 </li>
-                <!-- Add more conference entries here as needed -->
-            </ul>
+                <li style="margin-bottom: 12px;">
+                    <strong>Meena, P. K.</strong> and Chatterjee, K. (2023). "Influence of pore pressure parameter on seismic stability analysis of geosynthetic reinforced soil slope", <em>Proceedings of 17th Asian Regional Conference on Soil Mechanics (17ARC), Kazakhstan</em>[cite: 10]. DOI: 10.1201/9781003299127-158[cite: 10]
+                </li>
+                <li style="margin-bottom: 12px;">
+                    <strong>Meena, P. K.</strong> and Jain A. (2019). "Swell Behaviour of an Expansive Soil Reinforced with Randomly Oriented and Distributed Nylon Fiber", <em>National Conference on Advances in Building-Road Materials and Construction Engineering, MNIT Jaipur</em>[cite: 10].
+                </li>
+                <li style="margin-bottom: 12px;">
+                    <strong>Meena, P. K.</strong> and Jain A. (2018). "Improvement in Engineering Behaviour of Expansive Soils Treated with Discrete Fibers", <em>National Conference on Advanced Structures, Materials and Methodology in Civil Engineering, NIT Jalandhar</em>[cite: 10].
+                </li>
+            </ol>
         </div>
     </div>
 </body>

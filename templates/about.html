@@ -6,31 +6,35 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <div class="container" style="max-width: 700px;">
-<nav style="margin-bottom: 20px;">
-    <a href="{{ url_for('home') }}">Home</a> | 
-    <a href="{{ url_for('about') }}">About</a> | 
-    <a href="{{ url_for('research') }}">Research</a> | 
-    <a href="{{ url_for('gallery') }}">Gallery</a> | 
-    <a href="{{ url_for('contact') }}">Contact</a> | 
-    <a href="{{ url_for('admin') }}">Admin</a>
-</nav>
+    <div class="container" style="max-width: 750px;">
+        <nav style="margin-bottom: 20px;">
+            <a href="{{ url_for('home') }}">Home</a> | 
+            <a href="{{ url_for('about') }}">About</a> | 
+            <a href="{{ url_for('research') }}">Research</a> | 
+            <a href="{{ url_for('publications') }}">Publications</a> | 
+            <a href="{{ url_for('gallery') }}">Gallery</a> | 
+            <a href="{{ url_for('contact') }}">Contact</a> | 
+            <a href="{{ url_for('admin') }}">Admin</a>
+        </nav>
         
         <h1>About Me</h1>
         
         <div style="text-align: left; line-height: 1.6;">
-            <h3>Professional Profile</h3>
-            <p>I am currently serving as a <strong>Senior Project Scientist</strong> in the School of Civil and Environmental Engineering at the <strong>Indian Institute of Technology (IIT) Mandi</strong>.</p>
+            <h3>Research Profile</h3>
+            <p>Senior Project Scientist (Postdoctoral) at IIT Mandi specializing in earthquake geotechnics and disaster-resilient infrastructure. Currently leading the development of the Primer on Disaster Resilient Infrastructure (PODRI) in international collaboration with the University of Canterbury (New Zealand) and Durham University (UK). Backed by a Ph.D. from IIT Roorkee focused on the seismic stability analysis of geosynthetic-reinforced soil slopes.</p>
             
             <h3>Education</h3>
             <ul>
-                <li><strong>Ph.D. in Geotechnical Engineering</strong><br>Indian Institute of Technology (IIT) Roorkee</li>
+                <li><strong>Ph.D. in Geotechnical Engineering</strong> (Feb 2021 – Aug 2026)<br>Indian Institute of Technology (IIT) Roorkee<br><em>Thesis: Dynamic Stability Analysis of Reinforced Soil Slope Considering Tension Cracks</em></li>
+                <li><strong>M.Tech. in Geotechnical Engineering</strong> (Jul 2017 – Sep 2019)<br>National Institute of Technology (NIT) Kurukshetra<br><em>Thesis: A Study on Black Cotton Soil Reinforced with Nylon Fibers</em></li>
+                <li><strong>B.Tech. in Civil Engineering</strong> (Jul 2010 – Jun 2014)<br>Rajasthan Technical University</li>
             </ul>
 
-            <h3>Professional Affiliations</h3>
+            <h3>Professional Affiliations & Memberships</h3>
             <ul>
-                <li>Life Member, Indian Geotechnical Society (IGS)</li>
+                <li>Lifetime Member, Indian Geotechnical Society (IGS)</li>
                 <li>Member, International Society for Soil Mechanics and Geotechnical Engineering (ISSMGE)</li>
+                <li>Student Member, American Society of Civil Engineers (ASCE)</li>
             </ul>
         </div>
     </div>
