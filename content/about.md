@@ -58,7 +58,7 @@ sections:
   - type: text
     heading: Awards and recognition
     body: |-
-      - Travel funding from the **ISSMGE Foundation** to attend the 17th IACMAG Conference, Hong Kong (2025).
+      - Travel funding from the **Department of Civil Engineering, IIT Roorkee** and the **ISSMGE Foundation** to attend the 17th IACMAG Conference, Hong Kong (2025).
       - Travel funding from the **Dean of Resources and Alumni Affairs (DORA), IIT Roorkee** to attend the 17th Asian Regional Conference on Soil Mechanics and Geotechnical Engineering (17ARC), Kazakhstan (2023).
       - Qualified **GATE 2017** in Civil Engineering.
   - type: text

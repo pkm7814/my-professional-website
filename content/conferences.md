@@ -10,7 +10,7 @@ sections:
         title: 17th International Conference of the International Association for Computer Methods and Advances in Geomechanics (IACMAG 2025)
         subtitle: ""
         url: ""
-        details: "Presented paper: *Internal stability analysis of geosynthetic reinforced steep soil slopes considering the effect of tension cracks*. Supported by the ISSMGE Foundation."
+        details: "Presented paper: *Internal stability analysis of geosynthetic reinforced steep soil slopes considering the effect of tension cracks*. Supported by the Department of Civil Engineering, IIT Roorkee and the ISSMGE Foundation."
       - when: 7–10 May 2024 · Osaka, Japan
         title: 8th International Conference on Earthquake Geotechnical Engineering (8ICEGE 2024)
         subtitle: ""

@@ -6,8 +6,8 @@
   --bg: #f8f7f4; --surface: #ffffff; --text: #18212d; --muted: #586474;
   --accent: #1d4e89; --accent-ink: #ffffff; --accent-soft: #e8eef7; --line: #e4e1da; --grid: #ebe8e1;
   --ok: #15803d; --warn: #b45309; --fail: #b91c1c;
-  --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
-  --sans: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --serif: "Source Serif 4", Georgia, "Times New Roman", "Noto Serif Devanagari", "Nirmala UI", "Mangal", serif;
+  --sans: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans Devanagari", "Nirmala UI", sans-serif;
   --radius: 10px; --max: 920px;
   color-scheme: light;
 }

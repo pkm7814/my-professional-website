@@ -3,7 +3,7 @@ title: Home
 description: ""
 sections:
   - type: text
-    heading: Namaskar & welcome
+    heading: नमस्कार & welcome
     body: |-
       I am a geotechnical engineer working on **earthquake geotechnics, seismic slope stability and disaster-resilient infrastructure**. At IIT Mandi, I am part of the team developing the **Primer on Disaster Resilient Infrastructure (PoDRI)** in international collaboration with the University of Canterbury (New Zealand) and Durham University (United Kingdom).
 
@@ -28,7 +28,7 @@ sections:
       - date: Aug 2026
         text: Completed Ph.D. in Geotechnical Engineering at IIT Roorkee.
       - date: Dec 2025
-        text: Presented a paper at the 17th IACMAG Conference, Hong Kong, supported by the ISSMGE Foundation.
+        text: Presented a paper at the 17th IACMAG Conference, Hong Kong, supported by the Department of Civil Engineering, IIT Roorkee and the ISSMGE Foundation.
       - date: "2025"
         text: Paper published in *Geotechnical and Geological Engineering* (Springer).
 ---
