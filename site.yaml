@@ -45,6 +45,7 @@ nav:
   - { label: "Research",     url: "/research/" }
   - { label: "Publications", url: "/publications/" }
   - { label: "Conferences",  url: "/conferences/" }
+  - { label: "Gallery",      url: "/gallery/" }
   - { label: "Contact",      url: "/contact/" }
 
 # Pinned versions of browser libraries (loaded from cdn.jsdelivr.net with

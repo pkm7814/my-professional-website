@@ -126,6 +126,21 @@ class BuiltSite(unittest.TestCase):
         self.assertEqual(len(titles), len(set(titles)), "a publication appears twice")
         self.assertGreaterEqual(len(titles), 6)
 
+    def test_gallery_photos_have_no_metadata(self):
+        from PIL import Image
+        for img in (self.out / "gallery").rglob("*.jpg"):
+            with Image.open(img) as im:
+                self.assertEqual(len(im.getexif()), 0, f"{img} still has EXIF/GPS data")
+                self.assertLessEqual(max(im.size), 1600)
+
+    def test_gallery_and_contact_form(self):
+        g = (self.out / "gallery" / "index.html").read_text(encoding="utf-8")
+        self.assertIn("International visits", g)
+        self.assertIn("India", g)
+        c = (self.out / "contact" / "index.html").read_text(encoding="utf-8")
+        for field in ('name="name"', 'name="purpose"', 'name="message"', 'data-send="email"', 'data-send="whatsapp"'):
+            self.assertIn(field, c)
+
     def test_external_links_are_safe(self):
         for page in self.pages:
             for tag in re.findall(r"<a [^>]*target=\"_blank\"[^>]*>", page.read_text(encoding="utf-8")):

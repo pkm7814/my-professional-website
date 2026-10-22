@@ -1,6 +1,6 @@
 ---
-title: Conferences & Visits
-subtitle: International conferences and field visits.
+title: Conferences
+subtitle: International and national conferences attended.
 description: International conferences attended and papers presented by Dr. Pavan Kumar Meena.
 ---
 
@@ -19,7 +19,4 @@ description: International conferences attended and papers presented by Dr. Pava
 <li><span class="when">2018 · NIT Jalandhar</span><strong>National Conference on Advanced Structures, Materials and Methodology in Civil Engineering</strong><span>Presented paper on expansive soils treated with discrete fibres.</span></li>
 </ol>
 
-## Field visits
-
-Field visits in the Himalaya and the Thar desert — Munsiyari and Chopta–Tungnath (Uttarakhand)
-and Jaisalmer (Rajasthan). Photographs will be added here.
+Photographs from these conferences and from field visits are in the [Gallery](/gallery/).

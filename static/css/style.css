@@ -198,5 +198,58 @@ input[aria-invalid] { border-color: var(--fail) !important; outline-color: var(-
 .footer-right { display: flex; flex-direction: column; align-items: flex-start; gap: .5rem; }
 @media (max-width: 640px) { .footer-right { align-items: flex-start; } }
 
+
+/* ---- contact form ---- */
+.contact-form { margin: 1.5rem 0 2rem; padding: 1.4rem 1.5rem; }
+.contact-form h2 { margin: 0 0 1rem; font-size: 1.3rem; }
+.cf-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0 1rem; }
+@media (max-width: 600px) { .cf-row { grid-template-columns: 1fr; } }
+.contact-form input, .contact-form select, .contact-form textarea { width: 100%; padding: .6rem .7rem; border: 1px solid var(--line);
+  border-radius: 8px; background: var(--bg); color: var(--text); font: inherit; font-size: 1rem; }
+.contact-form textarea { resize: vertical; min-height: 140px; }
+.contact-form input:focus, .contact-form select:focus, .contact-form textarea:focus { outline: 2px solid var(--accent); outline-offset: 1px; border-color: var(--accent); }
+.req { color: var(--fail); }
+.cf-error { color: var(--fail); font-weight: 500; margin: .25rem 0 .5rem; }
+.cf-actions { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: .5rem; }
+.cf-actions .button { display: inline-flex; align-items: center; gap: .45rem; padding: .6rem 1.1rem; font-size: .98rem; }
+.cf-actions svg { width: 18px; height: 18px; fill: currentColor; }
+.button.whatsapp { background: #1f8f4e; border-color: #1f8f4e; color: #fff; }
+.button.whatsapp:hover { filter: brightness(1.08); color: #fff; }
+.cf-note { margin: .8rem 0 0; }
+
+/* ---- gallery ---- */
+.g-jump { display: grid; gap: .6rem; margin: 1.25rem 0 1rem; padding: 1rem 1.1rem; background: var(--surface);
+  border: 1px solid var(--line); border-radius: var(--radius); }
+.g-jump-row { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem; }
+.g-jump-label { font-size: .75rem; text-transform: uppercase; letter-spacing: .1em; font-weight: 600; color: var(--accent); min-width: 7.5rem; }
+.chip { font-size: .88rem; border: 1px solid var(--line); border-radius: 999px; padding: .15rem .75rem; text-decoration: none;
+  color: var(--text); background: var(--bg); }
+.chip:hover { border-color: var(--accent); color: var(--accent); }
+.g-section { margin-top: 2.5rem; }
+.g-section > h2 { border-bottom: 2px solid var(--accent); padding-bottom: .4rem; }
+.g-group { margin: 1.75rem 0 0; scroll-margin-top: 80px; }
+.g-group > h3 { font-size: 1.3rem; margin: 0 0 .75rem; }
+.g-place { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 1rem 1.2rem; margin-bottom: 1rem; scroll-margin-top: 80px; }
+.g-place-head { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; flex-wrap: wrap; }
+.g-place h4 { margin: 0; font: 600 1.08rem var(--sans); }
+.g-date { font-size: .85rem; color: var(--accent); font-weight: 600; }
+.g-event { margin: .2rem 0 0; color: var(--muted); font-size: .95rem; }
+.g-desc { margin: .5rem 0 0; font-size: .97rem; }
+.g-empty { margin: .5rem 0 0; color: var(--muted); font-size: .88rem; font-style: italic; }
+.g-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: .6rem; margin-top: .9rem; }
+.g-item { display: block; border-radius: 8px; overflow: hidden; aspect-ratio: 4 / 3; background: var(--grid); }
+.g-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .25s ease; }
+.g-item:hover img, .g-item:focus-visible img { transform: scale(1.04); }
+.lightbox { border: 0; padding: 0; background: transparent; max-width: 100vw; max-height: 100vh; width: 100vw; height: 100vh; }
+.lightbox::backdrop { background: rgb(5 10 18 / .95); }
+.lightbox[open] { display: flex; align-items: center; justify-content: center; }
+.lightbox figure { margin: 0; text-align: center; max-width: 92vw; }
+.lightbox img { max-width: 92vw; max-height: 82vh; border-radius: 6px; display: block; margin: 0 auto; }
+.lightbox figcaption { color: #e6e9ee; margin-top: .6rem; font-size: .95rem; white-space: pre-wrap; }
+.lightbox button { position: fixed; background: rgb(255 255 255 / .12); color: #fff; border: 0; border-radius: 50%;
+  width: 46px; height: 46px; font-size: 1.8rem; line-height: 1; cursor: pointer; }
+.lightbox button:hover { background: rgb(255 255 255 / .25); }
+.lb-close { top: 16px; right: 16px; } .lb-prev { left: 12px; top: 50%; } .lb-next { right: 12px; top: 50%; }
+
 @media print { .topbar, .footer, .tool-actions, .theme-toggle { display: none; } body { background: #fff; } }
 .footer .profile-links { justify-content: flex-start; }

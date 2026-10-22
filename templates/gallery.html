@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block main %}
+<article class="prose gallery-page">
+  <h1>{{ page.title or "Gallery" }}</h1>
+  {% if page.subtitle %}<p class="lead">{{ page.subtitle }}</p>{% endif %}
+  {{ content | safe }}
+
+  {% if gallery %}
+  <nav class="g-jump" aria-label="Jump to">
+    {% for sec in gallery %}
+    <div class="g-jump-row">
+      <span class="g-jump-label">{{ sec.title.split(" — ")[0] }}</span>
+      {% for g in sec.groups %}<a class="chip" href="#{{ g.id }}">{{ g.title }}</a>{% endfor %}
+    </div>
+    {% endfor %}
+  </nav>
+  {% endif %}
+
+  {% for sec in gallery %}
+  <section class="g-section" id="{{ sec.id }}">
+    <h2>{{ sec.title }}</h2>
+    {% for g in sec.groups %}
+    <section class="g-group" id="{{ g.id }}">
+      <h3>{{ g.title }}</h3>
+      {% for p in g.places %}
+      <section class="g-place" id="{{ p.id }}">
+        <div class="g-place-head">
+          <h4>{{ p.title }}</h4>
+          {% if p.info.date %}<span class="g-date">{{ p.info.date }}</span>{% endif %}
+        </div>
+        {% if p.info.event %}<p class="g-event">{{ p.info.event }}</p>{% endif %}
+        {% if p.info.description %}<p class="g-desc">{{ p.info.description }}</p>{% endif %}
+        {% if p.photos %}
+        <div class="g-grid">
+          {% for ph in p.photos %}
+          <a class="g-item" href="{{ ph.full }}" data-caption="{{ ph.caption or p.title }}" data-group="{{ p.id }}">
+            <img src="{{ ph.thumb }}" alt="{{ ph.alt }}" width="{{ ph.w }}" height="{{ ph.h }}" loading="lazy" decoding="async">
+          </a>
+          {% endfor %}
+        </div>
+        {% else %}
+        <p class="g-empty">Photographs will be added soon.</p>
+        {% endif %}
+      </section>
+      {% endfor %}
+    </section>
+    {% endfor %}
+  </section>
+  {% endfor %}
+</article>
+
+<dialog class="lightbox" aria-label="Photo viewer">
+  <button class="lb-close" aria-label="Close">×</button>
+  <button class="lb-prev" aria-label="Previous photo">‹</button>
+  <figure><img alt=""><figcaption></figcaption></figure>
+  <button class="lb-next" aria-label="Next photo">›</button>
+</dialog>
+<script src="/js/gallery.js" defer></script>
+{% endblock %}

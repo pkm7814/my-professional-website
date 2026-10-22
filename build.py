@@ -298,6 +298,94 @@ def prefix_paths(page_html: str, prefix: str) -> str:
     return ROOT_LINK.sub(lambda m: f"{m.group(1)}{prefix}/", page_html) if prefix else page_html
 
 
+# ---------------------------------------------------------------- gallery
+#
+# gallery/
+#   international/                 section (folder order: international, india)
+#     Japan/                       country  (optional _info.yaml: title, order)
+#       Osaka/                     place    (_info.yaml: title, date, event, description, captions)
+#         photo1.jpg …             photos (JPG / PNG / WebP)
+#   india/
+#     Uttarakhand/                 state
+#       Munsiyari/                 place
+#
+# Photos are resized (1600 px + 600 px thumbnail), rotated upright and stripped
+# of all metadata (including GPS location) before publishing.
+
+GALLERY_SRC = ROOT / "gallery"
+GALLERY_SECTIONS = {"international": "International visits", "india": "India — home country visits"}
+PHOTO_TYPES = {".jpg", ".jpeg", ".png", ".webp"}
+
+
+def _sort_date(info: dict) -> str:
+    return str(info.get("date_sort") or info.get("date") or "")
+
+
+def _process_photo(src: Path, dest_dir: Path, stem: str) -> dict:
+    from PIL import Image, ImageOps
+    dest_dir.mkdir(parents=True, exist_ok=True)
+    with Image.open(src) as im:
+        im = ImageOps.exif_transpose(im).convert("RGB")
+        out = {}
+        for key, size, quality in (("full", 1600, 84), ("thumb", 600, 80)):
+            copy = im.copy()
+            copy.thumbnail((size, size))
+            path = dest_dir / f"{stem}-{key}.jpg"
+            copy.save(path, "JPEG", quality=quality, optimize=True, progressive=True)  # no EXIF written
+            out[key] = path
+            out[f"{key}_size"] = copy.size
+    return out
+
+
+def build_gallery(out_dir: Path) -> list[dict]:
+    sections = []
+    if not GALLERY_SRC.exists():
+        return sections
+    for sec_key, sec_title in GALLERY_SECTIONS.items():
+        sec_dir = GALLERY_SRC / sec_key
+        if not sec_dir.is_dir():
+            continue
+        groups = []
+        for grp_dir in sorted(p for p in sec_dir.iterdir() if p.is_dir() and not p.name.startswith((".", "_"))):
+            ginfo = load_yaml(grp_dir / "_info.yaml", {}) or {}
+            places = []
+            for place_dir in sorted(p for p in grp_dir.iterdir() if p.is_dir() and not p.name.startswith((".", "_"))):
+                info = load_yaml(place_dir / "_info.yaml", {}) or {}
+                if info.get("hidden"):
+                    continue
+                captions = info.get("captions") or {}
+                photos = []
+                files = sorted(f for f in place_dir.iterdir() if f.suffix.lower() in PHOTO_TYPES)
+                for i, f in enumerate(files, 1):
+                    rel = Path(sec_key) / slugify(grp_dir.name) / slugify(place_dir.name)
+                    stem = slugify(f.stem) or f"photo-{i}"
+                    res = _process_photo(f, out_dir / rel, stem)
+                    caption = captions.get(f.name, "")
+                    photos.append({
+                        "full": "/" + str(res["full"].relative_to(OUT)).replace("\\", "/"),
+                        "thumb": "/" + str(res["thumb"].relative_to(OUT)).replace("\\", "/"),
+                        "w": res["thumb_size"][0], "h": res["thumb_size"][1],
+                        "caption": caption,
+                        "alt": caption or f"{info.get('title') or place_dir.name}, {grp_dir.name} — photo {i}",
+                    })
+                places.append({"id": f"{sec_key}-{slugify(grp_dir.name)}-{slugify(place_dir.name)}",
+                               "title": info.get("title") or place_dir.name, "info": info, "photos": photos})
+            if not places:
+                continue
+            places.sort(key=lambda p: (_sort_date(p["info"]), p["title"]), reverse=True)
+            groups.append({"id": f"{sec_key}-{slugify(grp_dir.name)}",
+                           "title": ginfo.get("title") or grp_dir.name,
+                           "order": ginfo.get("order"), "places": places,
+                           "latest": max(_sort_date(p["info"]) for p in places)})
+        # most recent visit first; an explicit `order:` in _info.yaml overrides
+        groups.sort(key=lambda g: g["title"])
+        groups.sort(key=lambda g: g["latest"], reverse=True)
+        groups.sort(key=lambda g: g["order"] if g["order"] is not None else 999)
+        if groups:
+            sections.append({"id": sec_key, "title": sec_title, "groups": groups})
+    return sections
+
+
 # ------------------------------------------------------------------ build
 
 
@@ -348,6 +436,8 @@ def build(include_drafts=False, strict=False) -> Path:
         extra = {}
         if template == "publications.html":
             extra["publications"] = load_publications(site.get("highlight_author", ""))
+        if template == "gallery.html":
+            extra["gallery"] = build_gallery(OUT / "gallery")
         write(url, template, needs_python=flags["python"], page=meta, content=content,
               needs_plot=flags["plot"], needs_math=has_math, **extra)
 
@@ -369,7 +459,7 @@ def build(include_drafts=False, strict=False) -> Path:
               tool=tool, notes=notes_html, needs_plot=True, needs_math=notes_math)
 
     write("/404.html", "page.html", page={"title": "Page not found"},
-          content="<p>Sorry, that page does not exist. <a href='/'>Go to the home page</a>.</p>")
+          content='<p>Sorry, that page does not exist. <a href="/">Go to the home page</a>.</p>')
 
     # sitemap + robots
     base = (site.get("base_url") or "").rstrip("/")
