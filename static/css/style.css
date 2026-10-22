@@ -224,6 +224,10 @@ input[aria-invalid] { border-color: var(--fail) !important; outline-color: var(-
 .button.whatsapp { background: #1f8f4e; border-color: #1f8f4e; color: #fff; }
 .button.whatsapp:hover { filter: brightness(1.08); color: #fff; }
 .cf-note { margin: .8rem 0 0; }
+.cf-choices { margin-top: 1rem; padding: 1rem 1.1rem; border: 1px solid var(--accent); border-radius: 10px; background: var(--accent-soft); }
+.cf-choices-title { margin: 0 0 .6rem; font-weight: 600; }
+.cf-choice-links { display: flex; flex-wrap: wrap; gap: .5rem; }
+.cf-copy-row { margin: .7rem 0 0; }
 
 /* ---- gallery ---- */
 .g-jump { display: grid; gap: .6rem; margin: 1.25rem 0 1rem; padding: 1rem 1.1rem; background: var(--surface);
