@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block main %}
+<article class="prose wide">
+  <p class="crumbs"><a href="/tools/">Tools</a> /</p>
+  <h1>{{ tool.title }}</h1>
+  {% if tool.summary %}<p class="lead">{{ tool.summary }}</p>{% endif %}
+  {% include "_tool.html" %}
+  {% if notes %}<section class="tool-notes">{{ notes | safe }}</section>{% endif %}
+  {% if tool.disclaimer %}<p class="notice small">{{ tool.disclaimer }}</p>{% endif %}
+</article>
+{% endblock %}

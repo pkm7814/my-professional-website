@@ -1,0 +1,8 @@
+{% set L = site.links %}
+<ul class="profile-links" aria-label="Academic profiles">
+  {% if L.linkedin %}<li><a href="{{ L.linkedin }}" rel="me noopener noreferrer" target="_blank"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.75h4V21H3zM9.5 9.75h3.8v1.6h.06c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.77 2.65 4.77 6.1V21h-4v-4.95c0-1.18-.02-2.7-1.65-2.7-1.65 0-1.9 1.29-1.9 2.62V21h-4z"/></svg>LinkedIn</a></li>{% endif %}
+  {% if L.scholar %}<li><a href="{{ L.scholar }}" rel="me noopener noreferrer" target="_blank"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3 1 9l11 6 9-4.9V17h2V9zM5 13.2v3.6L12 21l7-4.2v-3.6L12 17z"/></svg>Google Scholar</a></li>{% endif %}
+  {% if L.orcid %}<li><a href="{{ L.orcid }}" rel="me noopener noreferrer" target="_blank"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zM8.3 17.2H6.6V9.4h1.7zM7.45 8.3a1.05 1.05 0 1 1 0-2.1 1.05 1.05 0 0 1 0 2.1zM10 9.4h3.1c3 0 4.3 2.1 4.3 3.9 0 2-1.5 3.9-4.3 3.9H10zm1.7 1.5v4.8h1.3c1.9 0 2.7-1.2 2.7-2.4 0-1.1-.7-2.4-2.6-2.4z"/></svg>ORCID</a></li>{% endif %}
+  {% if L.researchgate %}<li><a href="{{ L.researchgate }}" rel="me noopener noreferrer" target="_blank">ResearchGate</a></li>{% endif %}
+  {% if L.github %}<li><a href="{{ L.github }}" rel="me noopener noreferrer" target="_blank">GitHub</a></li>{% endif %}
+</ul>

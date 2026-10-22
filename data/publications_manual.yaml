@@ -1,0 +1,52 @@
+# Curated publication list. Merged with the ORCID list (data/publications_orcid.yaml,
+# refreshed automatically) — matched by DOI, otherwise by title — and these entries
+# win. Fields: title, authors, year, type (journal-article | conference-paper |
+# book-chapter), journal, details, doi, url, pdf (file in static/docs/), note,
+# match_title (alternative title to match an ORCID item), hidden: true.
+#
+# Only published / accepted work goes here. Papers under review stay off the
+# public site until accepted.
+
+# ---------------------------------------------------------------- journals
+- title: "A limit equilibrium based pseudo-static approach to investigate the role of tension cracks and water forces on internal stability of geosynthetic reinforced soil slopes"
+  authors: "Meena, P. K. and Chatterjee, K."
+  year: 2025
+  type: journal-article
+  journal: "Geotechnical and Geological Engineering (Springer)"
+  details: "43, 409"
+  doi: "10.1007/s10706-025-03387-6"
+
+- title: "Effect of tension crack formation on external seismic stability analysis of geosynthetic reinforced soil slopes"
+  authors: "Meena, P. K. and Chatterjee, K."
+  year: 2024
+  type: journal-article
+  journal: "International Journal of Geomechanics (ASCE)"
+  details: "24(6)"
+  doi: "10.1061/IJGNAI.GMENG-9092"
+
+# ------------------------------------------------------------- conferences
+- title: "Internal stability analysis of geosynthetic reinforced steep soil slopes considering the effect of tension cracks"
+  authors: "Meena, P. K. and Chatterjee, K."
+  year: 2026
+  type: conference-paper
+  journal: "Proceedings of the 17th IACMAG Conference, Hong Kong"
+  doi: "10.1007/978-981-95-5969-5_26"
+
+- title: "Influence of pore pressure parameter on seismic stability analysis of geosynthetic reinforced soil slope"
+  authors: "Meena, P. K. and Chatterjee, K."
+  year: 2023
+  type: conference-paper
+  journal: "Proceedings of the 17th Asian Regional Conference on Soil Mechanics and Geotechnical Engineering (17ARC), Astana, Kazakhstan"
+  doi: "10.1201/9781003299127-158"
+
+- title: "Swell behaviour of an expansive soil reinforced with randomly oriented and distributed nylon fiber"
+  authors: "Meena, P. K. and Jain, A."
+  year: 2019
+  type: conference-paper
+  journal: "National Conference on Advances in Building-Road Materials and Construction Engineering, MNIT Jaipur"
+
+- title: "Improvement in engineering behaviour of expansive soils treated with discrete fibers"
+  authors: "Meena, P. K. and Jain, A."
+  year: 2018
+  type: conference-paper
+  journal: "National Conference on Advanced Structures, Materials and Methodology in Civil Engineering, NIT Jalandhar"

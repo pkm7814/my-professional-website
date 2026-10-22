@@ -1,0 +1,9 @@
+# Opens a pull request when a GitHub Action or Python package has a security/version update.
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule: { interval: "monthly" }
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule: { interval: "monthly" }

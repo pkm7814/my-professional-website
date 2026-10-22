@@ -1,5 +1,15 @@
-venv/
+_site/
 __pycache__/
-*.db
-instance/
+*.pyc
+.venv/
 .DS_Store
+Thumbs.db
+# never commit secrets or private drafts
+.env
+*.key
+*.pem
+private/
+.sri-cache.json
+*.db
+venv/
+instance/

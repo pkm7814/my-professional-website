@@ -1,57 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Publications | Dr. Pavan Kumar Meena</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-</head>
-<body>
-    <div class="container" style="max-width: 750px;">
-        <nav style="margin-bottom: 20px;">
-            <a href="{{ url_for('home') }}">Home</a> | 
-            <a href="{{ url_for('about') }}">About</a> | 
-            <a href="{{ url_for('research') }}">Research</a> | 
-            <a href="{{ url_for('publications') }}">Publications</a> | 
-            <a href="{{ url_for('gallery') }}">Gallery</a> | 
-            <a href="{{ url_for('contact') }}">Contact</a> | 
-            <a href="{{ url_for('admin') }}">Admin</a>
-        </nav>
-        
-        <h1>Publications & CV</h1>
-        
-        <div style="text-align: left; line-height: 1.6;">
-            <div style="background: #f9f9f9; padding: 15px; border-radius: 6px; border: 1px solid #e1e4e8; margin-bottom: 30px;">
-                <h3 style="margin-top: 0;">Curriculum Vitae</h3>
-                <p>Download my complete professional resume detailing my academic history, projects, and credentials.</p>
-                <a href="{{ url_for('static', filename='cv.pdf') }}" target="_blank" style="display: inline-block; background: #007bff; color: white; padding: 8px 15px; text-decoration: none; border-radius: 4px; font-weight: bold;">Download Full CV (PDF)</a>
-            </div>
-
-            <h3>Journal Papers</h3>
-            <ol style="padding-left: 20px;">
-                <li style="margin-bottom: 12px;">
-                    <strong>Meena, P. K.</strong> and Chatterjee, K. (2025). "A limit equilibrium based pseudo-static approach to investigate the role of tension cracks and water forces on internal stability of geosynthetic reinforced soil slopes." <em>Geotechnical and Geological Engineering (Springer)</em>, 43(409). DOI: 10.1007/s10706-025-03387-6[cite: 10]
-                </li>
-                <li style="margin-bottom: 12px;">
-                    <strong>Meena, P. K.</strong> and Chatterjee, K. (2024). "Effect of tension crack formation on external seismic stability analysis of geosynthetic reinforced soil slopes." <em>International Journal of Geomechanics (ASCE)</em>, 24(6). DOI: 10.1061/IJGNAI.GMENG-9092[cite: 10]
-                </li>
-            </ol>
-
-            <h3 style="margin-top: 30px;">Conference Proceedings</h3>
-            <ol style="padding-left: 20px;">
-                <li style="margin-bottom: 12px;">
-                    <strong>Meena, P. K.</strong> and Chatterjee, K. (2026). "Internal stability analysis of geosynthetic reinforced steep soil slopes considering the effect of tension cracks", <em>Proceedings of 17th IACMAG Conference, Hong Kong</em>. DOI: 10.1007/978-981-95-5969-526[cite: 10]
-                </li>
-                <li style="margin-bottom: 12px;">
-                    <strong>Meena, P. K.</strong> and Chatterjee, K. (2023). "Influence of pore pressure parameter on seismic stability analysis of geosynthetic reinforced soil slope", <em>Proceedings of 17th Asian Regional Conference on Soil Mechanics (17ARC), Kazakhstan</em>. DOI: 10.1201/9781003299127-158[cite: 10]
-                </li>
-                <li style="margin-bottom: 12px;">
-                    <strong>Meena, P. K.</strong> and Jain A. (2019). "Swell Behaviour of an Expansive Soil Reinforced with Randomly Oriented and Distributed Nylon Fiber", <em>National Conference on Advances in Building-Road Materials and Construction Engineering, MNIT Jaipur</em>[cite: 10].
-                </li>
-                <li style="margin-bottom: 12px;">
-                    <strong>Meena, P. K.</strong> and Jain A. (2018). "Improvement in Engineering Behaviour of Expansive Soils Treated with Discrete Fibers", <em>National Conference on Advanced Structures, Materials and Methodology in Civil Engineering, NIT Jalandhar</em>[cite: 10].
-                </li>
-            </ol>
-        </div>
-    </div>
-</body>
-</html>
+{% extends "base.html" %}
+{% block main %}
+<article class="prose">
+  <h1>{{ page.title or "Publications" }}</h1>
+  {% if page.subtitle %}<p class="lead">{{ page.subtitle }}</p>{% endif %}
+  {{ content | safe }}
+  {% if not publications %}
+  <p class="notice">Publications will appear here automatically from ORCID.</p>
+  {% endif %}
+  {% for category, items in publications %}
+  <h2>{{ category }} <span class="count">{{ items | length }}</span></h2>
+  <ol class="pubs" reversed>
+    {% for p in items %}
+    <li>
+      {% if p.authors_html %}<span class="pub-authors">{{ p.authors_html | safe }}{% if p.year %} ({{ p.year }}){% endif %}.</span>{% endif %}
+      <span class="pub-title">{{ p.title }}</span>
+      <span class="pub-venue">{% if p.journal %}<em>{{ p.journal }}</em>{% endif %}{% if p.details %}, {{ p.details }}{% endif %}{% if not p.authors_html and p.year %} · {{ p.year }}{% endif %}</span>
+      <span class="pub-links">
+        {% if p.doi %}<a href="https://doi.org/{{ p.doi }}" rel="noopener noreferrer" target="_blank">DOI: {{ p.doi }}</a>{% elif p.url %}<a href="{{ p.url }}" rel="noopener noreferrer" target="_blank">Link</a>{% endif %}
+        {% if p.pdf %}<a class="tag" href="/{{ p.pdf }}" download>PDF</a>{% endif %}
+        {% if p.note %}<span class="tag">{{ p.note }}</span>{% endif %}
+      </span>
+    </li>
+    {% endfor %}
+  </ol>
+  {% endfor %}
+</article>
+{% endblock %}

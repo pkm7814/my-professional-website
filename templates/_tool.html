@@ -1,0 +1,39 @@
+<section class="tool" data-tool="{{ tool.slug }}" data-model="/tools/{{ tool.slug }}/model.py">
+  <script type="application/json" class="tool-config">{{ {"slug": tool.slug, "packages": tool.packages, "inputs": tool.inputs} | tojson }}</script>
+  <div class="tool-grid">
+    <form class="tool-inputs" autocomplete="off" novalidate>
+      <h3>Inputs</h3>
+      {% for inp in tool.inputs %}
+      {% set id = tool.slug ~ "-" ~ inp.name %}
+      <div class="field">
+        <label for="{{ id }}">{{ inp.label | safe }}{% if inp.unit %} <span class="unit">({{ inp.unit | safe }})</span>{% endif %}</label>
+        {% if inp.type == "select" %}
+        <select id="{{ id }}" name="{{ inp.name }}">
+          {% for opt in inp.options %}<option value="{{ opt.value }}" {% if opt.value == inp.default %}selected{% endif %}>{{ opt.label }}</option>{% endfor %}
+        </select>
+        {% elif inp.type == "checkbox" %}
+        <input id="{{ id }}" name="{{ inp.name }}" type="checkbox" {% if inp.default %}checked{% endif %}>
+        {% else %}
+        <div class="num">
+          {% if inp.slider %}<input type="range" aria-hidden="true" tabindex="-1" data-for="{{ inp.name }}" min="{{ inp.min }}" max="{{ inp.max }}" step="{{ inp.step or 'any' }}" value="{{ inp.default }}">{% endif %}
+          <input id="{{ id }}" name="{{ inp.name }}" type="number" inputmode="decimal" value="{{ inp.default }}"
+                 {% if inp.min is not none %}min="{{ inp.min }}"{% endif %} {% if inp.max is not none %}max="{{ inp.max }}"{% endif %} step="{{ inp.step or 'any' }}">
+        </div>
+        {% endif %}
+        {% if inp.help %}<small class="help">{{ inp.help }}</small>{% endif %}
+      </div>
+      {% endfor %}
+      <div class="tool-actions">
+        <button type="button" class="button" data-action="reset">Reset</button>
+        <button type="button" class="button" data-action="download-json">Download results</button>
+      </div>
+    </form>
+    <div class="tool-outputs" aria-live="polite">
+      <p class="tool-status">Loading the Python engine… (first visit takes a few seconds)</p>
+      <div class="tool-summary"></div>
+      <div class="tool-messages"></div>
+      <div class="tool-figures"></div>
+      <div class="tool-tables"></div>
+    </div>
+  </div>
+</section>

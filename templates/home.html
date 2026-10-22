@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block main %}
+<section class="hero">
+  <img class="portrait" src="/{{ site.photo }}" alt="Portrait of {{ site.name }}" width="220" height="283">
+  <div class="hero-text">
+    <p class="eyebrow">Geotechnical Engineering</p>
+    <h1>{{ site.name }}</h1>
+    <p class="role">{{ site.title }}</p>
+    <p class="muted affil">{{ site.affiliation }}{% if site.location %}<br>{{ site.location }}{% endif %}</p>
+    <div class="actions">
+      <a class="button primary" href="/publications/">Publications</a>
+      {% if site.cv %}<a class="button" href="/{{ site.cv }}" target="_blank" rel="noopener">Download CV (PDF)</a>{% endif %}
+      <a class="button" href="/contact/">Contact</a>
+    </div>
+    {% include "_links.html" %}
+    {% set m = site.scholar_metrics %}
+    {% if m and m.citations %}
+    <dl class="metrics" aria-label="Google Scholar metrics">
+      <div><dt>Citations</dt><dd>{{ m.citations }}</dd></div>
+      {% if m.h_index %}<div><dt>h-index</dt><dd>{{ m.h_index }}</dd></div>{% endif %}
+      {% if m.i10_index %}<div><dt>i10-index</dt><dd>{{ m.i10_index }}</dd></div>{% endif %}
+      {% if m.updated %}<p class="muted small">Google Scholar, {{ m.updated }}</p>{% endif %}
+    </dl>
+    {% endif %}
+  </div>
+</section>
+<article class="prose">
+  {{ content | safe }}
+</article>
+{% endblock %}

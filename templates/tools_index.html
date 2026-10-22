@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block main %}
+<article class="prose">
+  <h1>Tools</h1>
+  <p class="lead">Interactive calculators. Everything runs in your browser — no data leaves your device.</p>
+  {% set list = tools | list %}
+  {% if list %}
+  <div class="cards">
+    {% for t in list %}
+    <a class="card" href="/tools/{{ t.slug }}/">
+      <h2>{{ t.title }}</h2>
+      {% if t.summary %}<p>{{ t.summary }}</p>{% endif %}
+    </a>
+    {% endfor %}
+  </div>
+  {% else %}
+  <p class="notice">New tools are on the way.</p>
+  {% endif %}
+</article>
+{% endblock %}

@@ -1,0 +1,55 @@
+# ---------------------------------------------------------------
+# SITE SETTINGS — the one file to edit for name, links and profile.
+# Everything on the website reads from here.
+# ---------------------------------------------------------------
+
+name: "Dr. Pavan Kumar Meena"
+short_name: "Pavan Kumar Meena"
+title: "Senior Project Scientist (Postdoctoral Researcher)"
+affiliation: "School of Civil and Environmental Engineering, Indian Institute of Technology Mandi"
+location: "Himachal Pradesh, India"
+tagline: "Earthquake geotechnics, seismic slope stability and disaster-resilient infrastructure."
+photo: "img/profile.jpg"
+cv: "docs/Pavan_Kumar_Meena_CV.pdf"
+highlight_author: "Meena, P. K."   # shown in bold in publication author lists
+
+# Address of the live site (also decides the URL prefix of every link).
+base_url: "https://pkm7814.github.io/my-professional-website"
+
+# E-mail is assembled in the visitor's browser so spam bots can't harvest it.
+email: { user: "pavan93meena", domain: "gmail.com" }
+
+# Profile links — leave a value "" to hide that link.
+links:
+  linkedin: "https://www.linkedin.com/in/pavan-kumar-meena-482494129/"
+  scholar: "https://scholar.google.com/citations?user=CL6PHzYAAAAJ&hl=en"
+  orcid: "https://orcid.org/0009-0003-1623-5090"
+  researchgate: ""
+  github: ""
+
+# Publications are pulled automatically from this public ORCID record on every
+# deploy and once a week. Corrections/extra details: data/publications_manual.yaml
+orcid_id: "0009-0003-1623-5090"
+
+# Google Scholar has no public API, so these numbers are updated by hand.
+scholar_metrics:
+  citations: null
+  h_index: null
+  i10_index: null
+  updated: ""
+
+# Top menu, in order. ("Tools" will be added when the first calculator is published.)
+nav:
+  - { label: "Home",         url: "/" }
+  - { label: "About",        url: "/about/" }
+  - { label: "Research",     url: "/research/" }
+  - { label: "Publications", url: "/publications/" }
+  - { label: "Conferences",  url: "/conferences/" }
+  - { label: "Contact",      url: "/contact/" }
+
+# Pinned versions of browser libraries (loaded from cdn.jsdelivr.net with
+# integrity hashes). Change a version here, deploy, and CI verifies it exists.
+libs:
+  plotly: "3.0.1"
+  pyodide: "0.27.7"
+  katex: "0.16.11"
