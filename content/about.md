@@ -5,7 +5,7 @@ hide_title: true
 ---
 
 <div class="about-head" markdown="1">
-<img src="/img/profile-office.jpg" alt="Dr. Pavan Kumar Meena at his desk" width="220" height="220" class="about-photo">
+<img src="/img/about-collage.jpg" alt="Collage of Dr. Pavan Kumar Meena on field visits and travels" width="280" height="280" class="about-photo">
 <div markdown="1">
 # About me
 
@@ -13,14 +13,17 @@ hide_title: true
 </div>
 </div>
 
-I am a Senior Project Scientist (Postdoctoral Researcher) at the Indian Institute of Technology
-(IIT) Mandi, specialising in earthquake geotechnics, soil dynamics and disaster-resilient
-infrastructure. I work as part of a collaborative international team developing the
-**Primer on Disaster Resilient Infrastructure (PoDRI)**.
+I am a geotechnical earthquake engineer and Senior Project Scientist (Postdoctoral Researcher)
+at the Indian Institute of Technology (IIT) Mandi, working on multi-hazard resilient
+infrastructure. My research bridges advanced theoretical mechanics and global policy frameworks
+for disaster risk reduction.
 
-My research foundation comes from my Ph.D. in Geotechnical Engineering at IIT Roorkee, where my
-dissertation addressed the seismic stability of geosynthetic-reinforced soil slopes, examining
-the combined effects of tension cracks, pore-water pressure and dynamic loading.
+My Ph.D. at IIT Roorkee developed seismic stability analyses for geosynthetic-reinforced soil
+slopes under the combined effects of tension cracks and pore-water pressure. I now apply this
+expertise within an international academic consortium, with the University of Canterbury
+(New Zealand) and Durham University (United Kingdom), to develop the
+**Primer on Disaster Resilient Infrastructure (PoDRI)**, which aims to support consistent
+engineering practice for disaster risk reduction worldwide.
 
 ## PoDRI project team
 
