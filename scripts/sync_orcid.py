@@ -46,10 +46,10 @@ def fetch_works(orcid_id: str) -> list[dict]:
 
 
 def main() -> int:
-    site = yaml.safe_load((ROOT / "site.yaml").read_text(encoding="utf-8"))
-    orcid_id = (site.get("orcid_id") or "").strip()
+    site = yaml.safe_load((ROOT / "data" / "profile.yaml").read_text(encoding="utf-8")) or {}
+    orcid_id = str(site.get("orcid_id") or "").strip()
     if not orcid_id:
-        print("No orcid_id in site.yaml — skipping ORCID sync.")
+        print("No orcid_id in data/profile.yaml — skipping ORCID sync.")
         return 0
     if not ORCID_RE.match(orcid_id):
         print(f"orcid_id '{orcid_id}' does not look like 0000-0000-0000-0000 — skipping.")

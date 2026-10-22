@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 {% block main %}
 <article class="prose gallery-page">
-  <h1>{{ page.title or "Gallery" }}</h1>
-  {% if page.subtitle %}<p class="lead">{{ page.subtitle }}</p>{% endif %}
+  {% include "_page_head.html" %}
   {{ content | safe }}
+  {% include "_sections.html" %}
 
   {% if gallery %}
   <nav class="g-jump" aria-label="Jump to">
@@ -29,7 +29,7 @@
           {% if p.info.date %}<span class="g-date">{{ p.info.date }}</span>{% endif %}
         </div>
         {% if p.info.event %}<p class="g-event">{{ p.info.event }}</p>{% endif %}
-        {% if p.info.description %}<p class="g-desc">{{ p.info.description }}</p>{% endif %}
+        {% if p.info.description %}<div class="g-desc">{{ p.info.description | md }}</div>{% endif %}
         {% if p.photos %}
         <div class="g-grid">
           {% for ph in p.photos %}

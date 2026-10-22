@@ -28,6 +28,11 @@
       });
     }
 
+    // Footer "Admin" link: only on devices where the owner switched it on (see /admin/).
+    try {
+      if (localStorage.getItem("site-admin") === "1") document.querySelectorAll(".admin-link").forEach((a) => { a.hidden = false; });
+    } catch (e) {}
+
     // <a class="email" data-u="name" data-d="example.org"></a> -> mailto link (hides address from bots)
     document.querySelectorAll("a.email[data-u][data-d]").forEach((a) => {
       const addr = `${a.dataset.u}@${a.dataset.d}`;

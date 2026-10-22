@@ -1,0 +1,43 @@
+name: Dr. Pavan Kumar Meena
+short_name: Pavan Kumar Meena
+initials: PKM
+eyebrow: Geotechnical Engineering
+title: Senior Project Scientist (Postdoctoral Researcher)
+affiliation: School of Civil and Environmental Engineering, Indian Institute of Technology Mandi
+location: Himachal Pradesh, India
+tagline: Earthquake geotechnics, seismic slope stability and disaster-resilient infrastructure.
+photo: /img/profile.jpg
+cv: /docs/Pavan_Kumar_Meena_CV.pdf
+email: pavan93meena@gmail.com
+whatsapp: "917023146332"
+address: |-
+  School of Civil and Environmental Engineering
+  Indian Institute of Technology Mandi
+  Kamand Campus, Mandi, Himachal Pradesh 175075, India
+links:
+  linkedin: https://www.linkedin.com/in/pavan-kumar-meena-482494129/
+  scholar: https://scholar.google.com/citations?user=CL6PHzYAAAAJ&hl=en
+  orcid: https://orcid.org/0009-0003-1623-5090
+  researchgate: ""
+  github: ""
+orcid_id: 0009-0003-1623-5090
+scholar_metrics:
+  citations: ""
+  h_index: ""
+  i10_index: ""
+  updated: ""
+nav:
+  - label: Home
+    url: /
+  - label: About
+    url: /about/
+  - label: Research
+    url: /research/
+  - label: Publications
+    url: /publications/
+  - label: Conferences
+    url: /conferences/
+  - label: Gallery
+    url: /gallery/
+  - label: Contact
+    url: /contact/

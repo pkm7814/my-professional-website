@@ -1,0 +1,12 @@
+{% if page.header_image %}
+<header class="page-head with-image size-{{ page.header_image_size or 'large' }}">
+  <img src="{{ page.header_image | asset }}" alt="{{ page.header_image_alt or page.title }}" class="page-head-img">
+  <div>
+    <h1>{{ page.title }}</h1>
+    {% if page.subtitle %}<p class="lead">{{ page.subtitle }}</p>{% endif %}
+  </div>
+</header>
+{% elif page.title %}
+<h1>{{ page.title }}</h1>
+{% if page.subtitle %}<p class="lead">{{ page.subtitle }}</p>{% endif %}
+{% endif %}

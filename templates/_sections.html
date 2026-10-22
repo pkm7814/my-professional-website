@@ -1,0 +1,90 @@
+{#- Renders the editable sections of a page. Each section has a `type` chosen in the admin editor. -#}
+{% for s in sections %}
+{% set t = s.type %}
+<section class="sec sec-{{ t }}">
+  {% if s.heading %}<h2>{{ s.heading }}</h2>{% endif %}
+
+  {% if t == "text" %}
+    {{ s.body | md }}
+
+  {% elif t == "highlights" %}
+    <div class="highlights">
+      {% for it in s["items"] or [] %}
+      <div class="highlight">{% if it.label %}<span class="hl-label">{{ it.label }}</span>{% endif %}<strong>{{ it.title }}</strong>{% if it.text %}<span>{{ it.text }}</span>{% endif %}</div>
+      {% endfor %}
+    </div>
+
+  {% elif t == "news" %}
+    <dl class="news">
+      {% for it in s["items"] or [] %}<dt>{{ it.date }}</dt><dd>{{ it.text | mdi }}</dd>{% endfor %}
+    </dl>
+
+  {% elif t == "timeline" %}
+    <ol class="timeline">
+      {% for it in s["items"] or [] %}
+      <li>
+        {% if it.when %}<span class="when">{{ it.when }}</span>{% endif %}
+        <strong>{{ it.title }}</strong>
+        {% if it.subtitle %}<span>{% if it.url %}<a href="{{ it.url | asset }}" target="_blank" rel="noopener noreferrer">{{ it.subtitle }}</a>{% else %}{{ it.subtitle }}{% endif %}</span>{% endif %}
+        {% if it.details %}<span class="muted">{{ it.details | mdi }}</span>{% endif %}
+      </li>
+      {% endfor %}
+    </ol>
+
+  {% elif t == "cards" %}
+    <div class="cards interests">
+      {% for it in s["items"] or [] %}
+      <div class="card"><h3>{{ it.title }}</h3>{% if it.text %}<p>{{ it.text | mdi }}</p>{% endif %}</div>
+      {% endfor %}
+    </div>
+
+  {% elif t == "columns" %}
+    <div class="two-col">
+      {% for c in s.columns or [] %}
+      <div>{% if c.heading %}<p><strong>{{ c.heading }}</strong></p>{% endif %}{{ c.body | md }}</div>
+      {% endfor %}
+    </div>
+
+  {% elif t == "image" %}
+    {% if s.image %}
+    <figure class="fig fig-{{ s.size or 'large' }}">
+      <img src="{{ s.image | asset }}" alt="{{ s.alt or s.caption or '' }}" loading="lazy">
+      {% if s.caption %}<figcaption>{{ s.caption }}</figcaption>{% endif %}
+    </figure>
+    {% endif %}
+
+  {% elif t == "video" %}
+    {% set yid = s.youtube | youtube_id %}
+    <figure class="embed">
+      {% if yid %}
+      <div class="ratio"><iframe src="https://www.youtube-nocookie.com/embed/{{ yid }}" title="{{ s.caption or s.heading or 'Video' }}" loading="lazy" allow="encrypted-media; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+      {% elif s.file %}
+      <video controls preload="metadata" src="{{ s.file | asset }}"></video>
+      {% endif %}
+      {% if s.caption %}<figcaption>{{ s.caption }}</figcaption>{% endif %}
+    </figure>
+
+  {% elif t == "buttons" %}
+    <div class="actions">
+      {% for b in s["items"] or [] %}
+      <a class="button{% if b.style == 'primary' %} primary{% endif %}" href="{{ b.url | asset }}"{% if b.url and (b.url.startswith('http') or b.url.endswith('.pdf')) %} target="_blank" rel="noopener noreferrer"{% endif %}>{{ b.label }}</a>
+      {% endfor %}
+    </div>
+
+  {% elif t == "contact_form" %}
+    {% include "_contact_form.html" %}
+
+  {% elif t == "contact_details" %}
+    <div class="contact-grid">
+      {% if site.email_user %}
+      <div class="card"><h3>E-mail</h3><p><a class="email" data-u="{{ site.email_user }}" data-d="{{ site.email_domain }}"></a></p>
+        <noscript><p>{{ site.email_user }} [at] {{ site.email_domain | replace('.', ' [dot] ') }}</p></noscript></div>
+      {% endif %}
+      {% if site.address %}<div class="card"><h3>Address</h3><p>{{ site.address | e | replace('\n', '<br>' | safe) }}</p></div>{% endif %}
+    </div>
+
+  {% elif t == "profiles" %}
+    {% include "_links.html" %}
+  {% endif %}
+</section>
+{% endfor %}

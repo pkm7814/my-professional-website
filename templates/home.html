@@ -1,15 +1,15 @@
 {% extends "base.html" %}
 {% block main %}
 <section class="hero">
-  <img class="portrait" src="/{{ site.photo }}" alt="Portrait of {{ site.name }}" width="220" height="283">
+  <img class="portrait" src="{{ site.photo | asset }}" alt="Portrait of {{ site.name }}" width="220" height="283">
   <div class="hero-text">
-    <p class="eyebrow">Geotechnical Engineering</p>
+    {% if site.eyebrow %}<p class="eyebrow">{{ site.eyebrow }}</p>{% endif %}
     <h1>{{ site.name }}</h1>
     <p class="role">{{ site.title }}</p>
     <p class="muted affil">{{ site.affiliation }}{% if site.location %}<br>{{ site.location }}{% endif %}</p>
     <div class="actions">
       <a class="button primary" href="/publications/">Publications</a>
-      {% if site.cv %}<a class="button" href="/{{ site.cv }}" target="_blank" rel="noopener">Download CV (PDF)</a>{% endif %}
+      {% if site.cv %}<a class="button" href="{{ site.cv | asset }}" target="_blank" rel="noopener">Download CV (PDF)</a>{% endif %}
       <a class="button" href="/contact/">Contact</a>
     </div>
     {% include "_links.html" %}
@@ -26,5 +26,6 @@
 </section>
 <article class="prose">
   {{ content | safe }}
+  {% include "_sections.html" %}
 </article>
 {% endblock %}

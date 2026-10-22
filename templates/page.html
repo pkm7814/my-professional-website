@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 {% block main %}
 <article class="prose">
-  {% if page.title and not page.hide_title %}<h1>{{ page.title }}</h1>{% endif %}
-  {% if page.subtitle %}<p class="lead">{{ page.subtitle }}</p>{% endif %}
+  {% include "_page_head.html" %}
   {{ content | safe }}
+  {% include "_sections.html" %}
 </article>
 {% endblock %}

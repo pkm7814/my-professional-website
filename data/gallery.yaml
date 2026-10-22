@@ -1,0 +1,51 @@
+international_heading: International visits
+india_heading: India — home country visits
+international:
+  - name: Hong Kong
+    places:
+      - name: Hong Kong
+        date: December 2025
+        event: 17th IACMAG Conference — paper presented
+        description: ""
+        photos: []
+  - name: Macao
+    places:
+      - name: Macao
+        date: December 2025
+        event: One-day visit during the IACMAG 2025 trip to Hong Kong
+        description: ""
+        photos: []
+  - name: Japan
+    places:
+      - name: Osaka
+        date: May 2024
+        event: 8th International Conference on Earthquake Geotechnical Engineering (8ICEGE 2024)
+        description: ""
+        photos: []
+  - name: Kazakhstan
+    places:
+      - name: Astana
+        date: August 2023
+        event: 17th Asian Regional Conference on Soil Mechanics and Geotechnical Engineering (17ARC) — paper presented
+        description: ""
+        photos: []
+india:
+  - name: Rajasthan
+    places:
+      - name: Jaisalmer
+        date: ""
+        event: Field visit
+        description: ""
+        photos: []
+  - name: Uttarakhand
+    places:
+      - name: Munsiyari
+        date: ""
+        event: Field visit
+        description: ""
+        photos: []
+      - name: Chopta – Tungnath
+        date: ""
+        event: Field visit
+        description: ""
+        photos: []

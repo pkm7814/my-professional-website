@@ -1,0 +1,300 @@
+# Admin editor configuration (Pages CMS — https://pagescms.org).
+# Sign in at app.pagescms.org with GitHub. Every save is a commit to `main`,
+# which rebuilds and publishes the website in about a minute.
+
+media:
+  - name: images
+    label: Site images
+    input: static/img
+    output: /img
+    categories: [image]
+    rename: safe
+  - name: gallery
+    label: Gallery photos
+    input: gallery/photos
+    output: /gallery-photos
+    extensions: [jpg, jpeg, png, webp]
+    rename: safe
+  - name: documents
+    label: Documents (CV, PDFs)
+    input: static/docs
+    output: /docs
+    categories: [document]
+  - name: videos
+    label: Videos (short clips < 25 MB)
+    input: static/video
+    output: /video
+    categories: [video]
+    rename: safe
+
+components:
+  page_sections:
+    type: block
+    label: Sections
+    blockKey: type
+    list:
+      collapsible:
+        collapsed: true
+        summary: "{type} — {heading}"
+    blocks:
+      - name: text
+        label: Text (heading + paragraphs, lists, links)
+        fields:
+          - { name: heading, label: Heading, type: string }
+          - { name: body, label: Text, type: rich-text, options: { format: markdown, media: images } }
+      - name: timeline
+        label: Timeline (experience, education, conferences)
+        fields:
+          - { name: heading, label: Heading, type: string }
+          - name: items
+            label: Entries
+            type: object
+            list: { collapsible: { collapsed: true, summary: "{when} — {title}" } }
+            fields:
+              - { name: when, label: "Date / place line", type: string }
+              - { name: title, label: Title, type: string }
+              - { name: subtitle, label: "Second line (e.g. institute)", type: string }
+              - { name: url, label: "Link for second line (optional)", type: string }
+              - { name: details, label: "Details (optional)", type: text }
+      - name: cards
+        label: Cards (grid of boxes)
+        fields:
+          - { name: heading, label: Heading, type: string }
+          - name: items
+            label: Cards
+            type: object
+            list: { collapsible: { collapsed: true, summary: "{title}" } }
+            fields:
+              - { name: title, label: Title, type: string }
+              - { name: text, label: Text, type: text }
+      - name: highlights
+        label: Highlights (3 key facts)
+        fields:
+          - { name: heading, label: Heading, type: string }
+          - name: items
+            label: Highlights
+            type: object
+            list: { collapsible: { collapsed: true, summary: "{label}: {title}" } }
+            fields:
+              - { name: label, label: "Small label", type: string }
+              - { name: title, label: Title, type: string }
+              - { name: text, label: Text, type: string }
+      - name: news
+        label: News list
+        fields:
+          - { name: heading, label: Heading, type: string }
+          - name: items
+            label: News items
+            type: object
+            list: { collapsible: { collapsed: true, summary: "{date} — {text}" } }
+            fields:
+              - { name: date, label: Date, type: string }
+              - { name: text, label: Text, type: text }
+      - name: columns
+        label: Two columns
+        fields:
+          - { name: heading, label: Heading, type: string }
+          - name: columns
+            label: Columns
+            type: object
+            list: { collapsible: { collapsed: true, summary: "{heading}" } }
+            fields:
+              - { name: heading, label: "Column heading", type: string }
+              - { name: body, label: Text, type: rich-text, options: { format: markdown } }
+      - name: image
+        label: Image
+        fields:
+          - { name: heading, label: Heading, type: string }
+          - { name: image, label: Image, type: image, options: { media: images } }
+          - { name: alt, label: "Description for screen readers", type: string }
+          - { name: caption, label: Caption, type: string }
+          - name: size
+            label: Size
+            type: select
+            options: { values: [small, medium, large, full] }
+      - name: video
+        label: Video (YouTube link or uploaded file)
+        fields:
+          - { name: heading, label: Heading, type: string }
+          - { name: youtube, label: "YouTube link (preferred)", type: string }
+          - { name: file, label: "…or uploaded video file", type: file, options: { media: videos } }
+          - { name: caption, label: Caption, type: string }
+      - name: buttons
+        label: Buttons / links
+        fields:
+          - { name: heading, label: Heading, type: string }
+          - name: items
+            label: Buttons
+            type: object
+            list: { collapsible: { collapsed: true, summary: "{label}" } }
+            fields:
+              - { name: label, label: Label, type: string }
+              - { name: url, label: "Link (page like /about/, file like /docs/x.pdf, or https://…)", type: string }
+              - name: style
+                label: Style
+                type: select
+                options: { values: [primary, secondary] }
+      - name: contact_form
+        label: Contact form
+        fields:
+          - { name: heading, label: Heading, type: string }
+          - { name: note, label: "Note under the buttons", type: text }
+      - name: contact_details
+        label: "Contact details (e-mail + address from Profile)"
+        fields:
+          - { name: heading, label: Heading, type: string }
+      - name: profiles
+        label: "Profile links (LinkedIn, Scholar, ORCID)"
+        fields:
+          - { name: heading, label: Heading, type: string }
+
+
+content:
+  - name: profile
+    label: "Profile & menu"
+    type: file
+    path: data/profile.yaml
+    format: yaml
+    fields:
+      - { name: name, label: "Full name (with title)", type: string, required: true }
+      - { name: short_name, label: "Short name (top bar)", type: string }
+      - { name: initials, label: "Initials (logo)", type: string }
+      - { name: eyebrow, label: "Small line above name (home)", type: string }
+      - { name: title, label: Position, type: string }
+      - { name: affiliation, label: Affiliation, type: string }
+      - { name: location, label: Location, type: string }
+      - { name: tagline, label: "One-line summary", type: string }
+      - { name: photo, label: "Home page portrait", type: image, options: { media: images } }
+      - { name: cv, label: "CV (PDF)", type: file, options: { media: documents } }
+      - { name: email, label: "E-mail (hidden from spam bots on the site)", type: string }
+      - { name: whatsapp, label: "WhatsApp number with country code, digits only (e.g. 917023146332). Leave empty to hide the WhatsApp button.", type: string }
+      - { name: address, label: Postal address, type: text }
+      - name: links
+        label: Profile links
+        type: object
+        fields:
+          - { name: linkedin, label: LinkedIn, type: string }
+          - { name: scholar, label: Google Scholar, type: string }
+          - { name: orcid, label: "ORCID (link)", type: string }
+          - { name: researchgate, label: ResearchGate, type: string }
+          - { name: github, label: GitHub, type: string }
+      - { name: orcid_id, label: "ORCID iD (publications sync automatically)", type: string }
+      - name: scholar_metrics
+        label: Google Scholar numbers (shown on the home page)
+        type: object
+        fields:
+          - { name: citations, label: Citations, type: string }
+          - { name: h_index, label: h-index, type: string }
+          - { name: i10_index, label: i10-index, type: string }
+          - { name: updated, label: "Updated (e.g. Oct 2026)", type: string }
+      - name: nav
+        label: Top menu
+        type: object
+        list: { collapsible: { collapsed: true, summary: "{label}  →  {url}" } }
+        fields:
+          - { name: label, label: "Menu text", type: string }
+          - { name: url, label: "Page address (e.g. /about/)", type: string }
+
+  - name: pages
+    label: Pages
+    type: collection
+    path: content
+    format: yaml-frontmatter
+    subfolders: false
+    filename: "{primary}.md"
+    view:
+      fields: [title]
+    fields:
+      - { name: title, label: "Page title", type: string, required: true }
+      - { name: subtitle, label: "Subtitle (under the title)", type: string }
+      - { name: description, label: "Search-engine description", type: text }
+      - { name: header_image, label: "Header image (optional)", type: image, options: { media: images } }
+      - { name: header_image_alt, label: "Header image description", type: string }
+      - name: header_image_size
+        label: "Header image size"
+        type: select
+        options: { values: [medium, large, xlarge] }
+      - { name: draft, label: "Hide this page (draft)", type: boolean }
+      - name: sections
+        component: page_sections
+      - { name: body, label: "Extra text at the end (optional)", type: rich-text, options: { format: markdown } }
+
+  - name: gallery
+    label: Gallery
+    type: file
+    path: data/gallery.yaml
+    format: yaml
+    fields:
+      - { name: international_heading, label: "Heading — international", type: string }
+      - { name: india_heading, label: "Heading — India", type: string }
+      - name: international
+        label: "International visits — countries"
+        type: object
+        list: { collapsible: { collapsed: true, summary: "{name}" } }
+        fields:
+          - { name: name, label: "Country", type: string, required: true }
+          - { name: hidden, label: "Hide", type: boolean }
+          - name: places
+            label: "Places visited"
+            type: object
+            list: { collapsible: { collapsed: true, summary: "{name} ({date})" } }
+            fields:
+              - { name: name, label: Place, type: string, required: true }
+              - { name: date, label: "Date (e.g. May 2024)", type: string }
+              - { name: event, label: "Event / purpose", type: string }
+              - { name: description, label: Description, type: rich-text, options: { format: markdown } }
+              - { name: hidden, label: "Hide", type: boolean }
+              - name: photos
+                label: Photos
+                type: object
+                list: { collapsible: { collapsed: true, summary: "{caption}" } }
+                fields:
+                  - { name: image, label: Photo, type: image, options: { media: gallery } }
+                  - { name: caption, label: Caption, type: string }
+      - name: india
+        label: "India — states"
+        type: object
+        list: { collapsible: { collapsed: true, summary: "{name}" } }
+        fields:
+          - { name: name, label: "State", type: string, required: true }
+          - { name: hidden, label: "Hide", type: boolean }
+          - name: places
+            label: "Places visited"
+            type: object
+            list: { collapsible: { collapsed: true, summary: "{name} ({date})" } }
+            fields:
+              - { name: name, label: Place, type: string, required: true }
+              - { name: date, label: "Date (e.g. May 2024)", type: string }
+              - { name: event, label: "Event / purpose", type: string }
+              - { name: description, label: Description, type: rich-text, options: { format: markdown } }
+              - { name: hidden, label: "Hide", type: boolean }
+              - name: photos
+                label: Photos
+                type: object
+                list: { collapsible: { collapsed: true, summary: "{caption}" } }
+                fields:
+                  - { name: image, label: Photo, type: image, options: { media: gallery } }
+                  - { name: caption, label: Caption, type: string }
+
+  - name: publications
+    label: Publications
+    type: file
+    path: data/publications_manual.yaml
+    format: yaml
+    list:
+      collapsible: { collapsed: true, summary: "{year} — {title}" }
+    fields:
+      - { name: title, label: Title, type: string, required: true }
+      - { name: authors, label: "Authors (e.g. Meena, P. K. and Chatterjee, K.)", type: string }
+      - { name: year, label: Year, type: number }
+      - name: type
+        label: Type
+        type: select
+        options: { values: [journal-article, conference-paper, book-chapter, other] }
+      - { name: journal, label: "Journal / conference", type: string }
+      - { name: details, label: "Volume, issue, pages", type: string }
+      - { name: doi, label: "DOI (e.g. 10.1007/...)", type: string }
+      - { name: url, label: "Link (if no DOI)", type: string }
+      - { name: pdf, label: "PDF (optional)", type: file, options: { media: documents } }
+      - { name: note, label: "Note (e.g. Best paper award)", type: string }
+      - { name: hidden, label: "Hide this entry", type: boolean }

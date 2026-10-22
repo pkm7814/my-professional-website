@@ -168,10 +168,18 @@ input[aria-invalid] { border-color: var(--fail) !important; outline-color: var(-
 .news dt { font-weight: 600; color: var(--accent); font-variant-numeric: tabular-nums; }
 .news dd { margin: 0; }
 @media (max-width: 520px) { .news { grid-template-columns: 1fr; gap: .1rem; } .news dd { margin-bottom: .6rem; } }
-.about-head { display: grid; grid-template-columns: 280px 1fr; gap: 2rem; align-items: center; margin-bottom: 1.5rem; }
-.about-head .lead { margin: .2rem 0 0; }
-.about-photo { width: 280px; height: 280px; object-fit: cover; border-radius: 14px; border: 1px solid var(--line); box-shadow: 0 10px 28px rgb(15 30 60 / .12); }
-@media (max-width: 600px) { .about-head { grid-template-columns: 1fr; text-align: center; } .about-photo { margin: 0 auto; width: 100%; max-width: 340px; height: auto; aspect-ratio: 1; } }
+.page-head.with-image { display: grid; grid-template-columns: var(--head-img) 1fr; gap: 2.25rem; align-items: center; margin-bottom: 2rem; }
+.page-head.size-medium { --head-img: 220px; } .page-head.size-large { --head-img: 270px; } .page-head.size-xlarge { --head-img: 360px; }
+.page-head h1 { margin-bottom: .3rem; } .page-head .lead { margin: 0; }
+.page-head-img { width: var(--head-img); height: var(--head-img); object-fit: cover; border-radius: 14px; border: 1px solid var(--line);
+  box-shadow: 0 10px 28px rgb(15 30 60 / .12); background: var(--surface); }
+@media (max-width: 700px) { .page-head.with-image { grid-template-columns: 1fr; text-align: center; gap: 1.25rem; }
+  .page-head-img { margin: 0 auto; width: min(100%, var(--head-img) + 40px); height: auto; aspect-ratio: 1; } }
+.sec > h2:first-child { margin-top: 2.2rem; }
+.fig { margin: 1.5rem auto; } .fig img { width: 100%; border-radius: var(--radius); display: block; }
+.fig-small { max-width: 320px; } .fig-medium { max-width: 520px; } .fig-large { max-width: 760px; } .fig-full { max-width: none; }
+.admin-link { margin-left: .8rem; color: var(--muted); font-size: .85rem; }
+.admin-card { padding: 1.2rem 1.4rem; margin: 1.5rem 0; } .admin-card h2 { margin-top: 0; }
 .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
 @media (max-width: 680px) { .two-col { grid-template-columns: 1fr; } }
 .timeline { list-style: none; padding: 0; margin: 1rem 0; border-left: 2px solid var(--line); }

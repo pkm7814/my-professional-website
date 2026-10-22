@@ -32,6 +32,7 @@ from pathlib import Path
 import markdown
 import yaml
 from jinja2 import Environment, FileSystemLoader, select_autoescape
+from markupsafe import Markup
 
 ROOT = Path(__file__).resolve().parent
 OUT = ROOT / "_site"
@@ -300,25 +301,15 @@ def prefix_paths(page_html: str, prefix: str) -> str:
 
 # ---------------------------------------------------------------- gallery
 #
-# gallery/
-#   international/                 section (folder order: international, india)
-#     Japan/                       country  (optional _info.yaml: title, order)
-#       Osaka/                     place    (_info.yaml: title, date, event, description, captions)
-#         photo1.jpg …             photos (JPG / PNG / WebP)
-#   india/
-#     Uttarakhand/                 state
-#       Munsiyari/                 place
-#
-# Photos are resized (1600 px + 600 px thumbnail), rotated upright and stripped
-# of all metadata (including GPS location) before publishing.
+# data/gallery.yaml (edited in the admin editor):
+#   international: [ {name: Country, places: [ {name, date, event, description,
+#                     photos: [ {image: /gallery-photos/x.jpg, caption} ]} ]} ]
+#   india:         [ {name: State,   places: [...]} ]
+# Photo files live in gallery/photos/. They are resized (1600 px + 600 px
+# thumbnail), turned upright and stripped of all metadata (incl. GPS) on build.
 
-GALLERY_SRC = ROOT / "gallery"
-GALLERY_SECTIONS = {"international": "International visits", "india": "India — home country visits"}
+GALLERY_PHOTOS = ROOT / "gallery" / "photos"
 PHOTO_TYPES = {".jpg", ".jpeg", ".png", ".webp"}
-
-
-def _sort_date(info: dict) -> str:
-    return str(info.get("date_sort") or info.get("date") or "")
 
 
 def _process_photo(src: Path, dest_dir: Path, stem: str) -> dict:
@@ -332,72 +323,108 @@ def _process_photo(src: Path, dest_dir: Path, stem: str) -> dict:
             copy.thumbnail((size, size))
             path = dest_dir / f"{stem}-{key}.jpg"
             copy.save(path, "JPEG", quality=quality, optimize=True, progressive=True)  # no EXIF written
-            out[key] = path
+            out[key] = "/" + str(path.relative_to(OUT)).replace("\\", "/")
             out[f"{key}_size"] = copy.size
     return out
 
 
+def _photo_source(ref: str) -> Path | None:
+    """Map an editor value such as '/gallery-photos/osaka 1.jpg' to gallery/photos/osaka 1.jpg."""
+    name = str(ref or "").replace("\\", "/").split("/")[-1]
+    path = GALLERY_PHOTOS / name
+    return path if name and path.suffix.lower() in PHOTO_TYPES and path.exists() else None
+
+
 def build_gallery(out_dir: Path) -> list[dict]:
-    sections = []
-    if not GALLERY_SRC.exists():
-        return sections
-    for sec_key, sec_title in GALLERY_SECTIONS.items():
-        sec_dir = GALLERY_SRC / sec_key
-        if not sec_dir.is_dir():
-            continue
+    data = load_yaml(ROOT / "data" / "gallery.yaml", {}) or {}
+    sections, done = [], {}
+    for key, default_title in (("international", "International visits"), ("india", "India — home country visits")):
         groups = []
-        for grp_dir in sorted(p for p in sec_dir.iterdir() if p.is_dir() and not p.name.startswith((".", "_"))):
-            ginfo = load_yaml(grp_dir / "_info.yaml", {}) or {}
-            places = []
-            for place_dir in sorted(p for p in grp_dir.iterdir() if p.is_dir() and not p.name.startswith((".", "_"))):
-                info = load_yaml(place_dir / "_info.yaml", {}) or {}
-                if info.get("hidden"):
-                    continue
-                captions = info.get("captions") or {}
-                photos = []
-                files = sorted(f for f in place_dir.iterdir() if f.suffix.lower() in PHOTO_TYPES)
-                for i, f in enumerate(files, 1):
-                    rel = Path(sec_key) / slugify(grp_dir.name) / slugify(place_dir.name)
-                    stem = slugify(f.stem) or f"photo-{i}"
-                    res = _process_photo(f, out_dir / rel, stem)
-                    caption = captions.get(f.name, "")
-                    photos.append({
-                        "full": "/" + str(res["full"].relative_to(OUT)).replace("\\", "/"),
-                        "thumb": "/" + str(res["thumb"].relative_to(OUT)).replace("\\", "/"),
-                        "w": res["thumb_size"][0], "h": res["thumb_size"][1],
-                        "caption": caption,
-                        "alt": caption or f"{info.get('title') or place_dir.name}, {grp_dir.name} — photo {i}",
-                    })
-                places.append({"id": f"{sec_key}-{slugify(grp_dir.name)}-{slugify(place_dir.name)}",
-                               "title": info.get("title") or place_dir.name, "info": info, "photos": photos})
-            if not places:
+        for g in data.get(key) or []:
+            if not g or not g.get("name") or g.get("hidden"):
                 continue
-            places.sort(key=lambda p: (_sort_date(p["info"]), p["title"]), reverse=True)
-            groups.append({"id": f"{sec_key}-{slugify(grp_dir.name)}",
-                           "title": ginfo.get("title") or grp_dir.name,
-                           "order": ginfo.get("order"), "places": places,
-                           "latest": max(_sort_date(p["info"]) for p in places)})
-        # most recent visit first; an explicit `order:` in _info.yaml overrides
-        groups.sort(key=lambda g: g["title"])
-        groups.sort(key=lambda g: g["latest"], reverse=True)
-        groups.sort(key=lambda g: g["order"] if g["order"] is not None else 999)
+            gid = f"{key}-{slugify(g['name'])}"
+            places = []
+            for pl in g.get("places") or []:
+                if not pl or not pl.get("name") or pl.get("hidden"):
+                    continue
+                pid = f"{gid}-{slugify(pl['name'])}"
+                photos = []
+                for i, ph in enumerate(pl.get("photos") or [], 1):
+                    ref = ph.get("image") if isinstance(ph, dict) else ph
+                    caption = (ph.get("caption") if isinstance(ph, dict) else "") or ""
+                    src = _photo_source(ref)
+                    if src is None:
+                        print(f"warning: gallery photo not found: {ref}")
+                        continue
+                    if src not in done:
+                        done[src] = _process_photo(src, out_dir, slugify(src.stem) or f"photo-{len(done)+1}")
+                    res = done[src]
+                    photos.append({"full": res["full"], "thumb": res["thumb"],
+                                   "w": res["thumb_size"][0], "h": res["thumb_size"][1], "caption": caption,
+                                   "alt": caption or f"{pl['name']}, {g['name']} — photo {i}"})
+                places.append({"id": pid, "title": pl["name"], "info": pl, "photos": photos})
+            if places:
+                groups.append({"id": gid, "title": g["name"], "places": places})
         if groups:
-            sections.append({"id": sec_key, "title": sec_title, "groups": groups})
+            sections.append({"id": key, "title": data.get(f"{key}_heading") or default_title, "groups": groups})
     return sections
+
+
+# ---------------------------------------------------------- site settings
+
+
+def load_site() -> dict:
+    """Technical settings (site.yaml) + everything editable (data/profile.yaml)."""
+    site = load_yaml(ROOT / "site.yaml", {}) or {}
+    site.update(load_yaml(ROOT / "data" / "profile.yaml", {}) or {})
+    email = str(site.get("email") or "")
+    site["email_user"], _, site["email_domain"] = email.partition("@")
+    wa = re.sub(r"\D", "", str(site.get("whatsapp") or ""))
+    site["wa_p1"], site["wa_p2"] = wa[: len(wa) // 2], wa[len(wa) // 2:]
+    return site
+
+
+def asset(value) -> str:
+    """Normalise an image/file path from the editor to '/path' (external URLs unchanged)."""
+    v = str(value or "").strip()
+    if not v or re.match(r"^(https?:|mailto:|tel:|#)", v):
+        return v
+    return "/" + v.lstrip("/")
+
+
+def youtube_id(value) -> str:
+    v = str(value or "").strip()
+    m = re.search(r"(?:youtu\.be/|v=|embed/|shorts/)([\w-]{6,})", v)
+    return m.group(1) if m else (v if re.fullmatch(r"[\w-]{6,}", v) else "")
 
 
 # ------------------------------------------------------------------ build
 
 
 def build(include_drafts=False, strict=False) -> Path:
-    site = load_yaml(ROOT / "site.yaml", {})
+    site = load_site()
     urls = library_urls(site["libs"])
     sri = compute_sri(urls, strict)
     tools = load_tools(include_drafts)
 
+    md = markdown.Markdown(extensions=["tables", "fenced_code", "toc", "attr_list",
+                                       "md_in_html", "footnotes", "sane_lists"])
+
+    def md_block(text) -> Markup:
+        md.reset()
+        return Markup(md.convert(str(text or "")))
+
+    def md_inline(text) -> Markup:
+        out = str(md_block(text)).strip()
+        if out.startswith("<p>") and out.endswith("</p>") and out.count("<p>") == 1:
+            out = out[3:-4]
+        return Markup(out)
+
     env = Environment(loader=FileSystemLoader(ROOT / "templates"),
                       autoescape=select_autoescape(["html"]))
     env.globals.update(site=site, lib=urls, sri=sri, year=date.today().year)
+    env.filters.update(md=md_block, mdi=md_inline, asset=asset, youtube_id=youtube_id)
     shortcodes = Shortcodes(env, tools, include_drafts)
     prefix = base_path(site)
 
@@ -414,13 +441,12 @@ def build(include_drafts=False, strict=False) -> Path:
         html_out = env.get_template(template).render(
             url=url, csp=csp(needs_python), needs_python=needs_python, **ctx)
         dest.write_text(prefix_paths(html_out, prefix), encoding="utf-8")
-        if url != "/404.html":
+        if url != "/404.html" and not ctx.get("noindex"):
             pages_written.append(url)
 
-    md = markdown.Markdown(extensions=["tables", "fenced_code", "toc", "attr_list",
-                                       "md_in_html", "footnotes", "sane_lists"])
+    special = {"home": "home.html", "publications": "publications.html", "gallery": "gallery.html"}
 
-    # Markdown pages
+    # Pages: front matter (title, subtitle, header image, sections) + optional Markdown body
     for path in sorted((ROOT / "content").glob("*.md")):
         meta, body = split_front_matter(path.read_text(encoding="utf-8"))
         if meta.get("draft") and not include_drafts:
@@ -430,16 +456,18 @@ def build(include_drafts=False, strict=False) -> Path:
         content = md.convert(body)
         for token, block in blocks.items():
             content = content.replace(f"<p>{token}</p>", block).replace(token, block)
+        sections = [s for s in (meta.get("sections") or []) if isinstance(s, dict) and not s.get("hidden")]
         has_math = bool(meta.get("math") or flags["math"])
         url = "/" if path.stem == "home" else f"/{path.stem}/"
-        template = meta.get("template", "page") + ".html"
+        template = special.get(path.stem) or (meta.get("template", "page") + ".html")
         extra = {}
         if template == "publications.html":
             extra["publications"] = load_publications(site.get("highlight_author", ""))
         if template == "gallery.html":
             extra["gallery"] = build_gallery(OUT / "gallery")
-        write(url, template, needs_python=flags["python"], page=meta, content=content,
-              needs_plot=flags["plot"], needs_math=has_math, **extra)
+        write(url, template, needs_python=flags["python"], page=meta, content=content, sections=sections,
+              needs_plot=flags["plot"], needs_math=has_math,
+              needs_contact=any(s.get("type") == "contact_form" for s in sections), **extra)
 
     # Tools: index + one page each
     write("/tools/", "tools_index.html", page={"title": "Tools"}, tools=tools.values())
@@ -458,7 +486,8 @@ def build(include_drafts=False, strict=False) -> Path:
         write(f"/tools/{slug}/", "tool_page.html", needs_python=True, page={"title": tool["title"]},
               tool=tool, notes=notes_html, needs_plot=True, needs_math=notes_math)
 
-    write("/404.html", "page.html", page={"title": "Page not found"},
+    write("/admin/", "admin.html", page={"title": "Admin", "description": "Site administration."}, noindex=True)
+    write("/404.html", "page.html", page={"title": "Page not found"}, sections=[],
           content='<p>Sorry, that page does not exist. <a href="/">Go to the home page</a>.</p>')
 
     # sitemap + robots
@@ -468,7 +497,7 @@ def build(include_drafts=False, strict=False) -> Path:
         (OUT / "sitemap.xml").write_text(
             '<?xml version="1.0" encoding="UTF-8"?>'
             f'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{items}</urlset>')
-    (OUT / "robots.txt").write_text("User-agent: *\nAllow: /\n" +
+    (OUT / "robots.txt").write_text("User-agent: *\nAllow: /\nDisallow: " + (prefix or "") + "/admin/\n" +
                                     (f"Sitemap: {base}/sitemap.xml\n" if base else ""))
     print(f"Built {len(pages_written)} pages and {len(tools)} tool(s) into {OUT.relative_to(ROOT)}/")
     return OUT

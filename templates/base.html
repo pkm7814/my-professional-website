@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="Content-Security-Policy" content="{{ csp }}">
   <meta name="referrer" content="strict-origin-when-cross-origin">
+  {% if noindex %}<meta name="robots" content="noindex, nofollow">{% endif %}
   <title>{% if page.title and url != '/' %}{{ page.title }} · {{ site.name }}{% else %}{{ site.name }} · {{ site.title }}{% endif %}</title>
   <meta name="description" content="{{ page.description or (site.name ~ ' — ' ~ site.title ~ ', ' ~ site.affiliation ~ '. ' ~ site.tagline) }}">
   <meta name="author" content="{{ site.short_name or site.name }}">
@@ -12,7 +13,7 @@
   <meta property="og:title" content="{{ page.title if page.title and url != '/' else site.name }}">
   <meta property="og:description" content="{{ page.description or site.tagline }}">
   <meta property="og:type" content="profile">
-  {% if site.base_url %}<meta property="og:image" content="{{ site.base_url }}/{{ site.photo }}">{% endif %}
+  {% if site.base_url %}<meta property="og:image" content="{{ site.base_url }}{{ site.photo | asset }}">{% endif %}
   <meta name="theme-color" content="#1d3f6e">
   <link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/css/style.css">
@@ -22,7 +23,7 @@
   <a class="skip" href="#main">Skip to content</a>
   <header class="topbar">
     <div class="wrap topbar-inner">
-      <a class="brand" href="/"><span class="brand-mark" aria-hidden="true">PKM</span><span class="brand-name">{{ site.short_name or site.name }}</span></a>
+      <a class="brand" href="/"><span class="brand-mark" aria-hidden="true">{{ site.initials or "" }}</span><span class="brand-name">{{ site.short_name or site.name }}</span></a>
       <button class="menu-toggle" aria-expanded="false" aria-controls="nav" aria-label="Open menu">☰</button>
       <nav id="nav" class="nav" aria-label="Main">
         {% for item in site.nav %}
@@ -46,12 +47,13 @@
       </div>
       <div class="footer-right">
         {% include "_links.html" %}
-        <span class="small">© {{ year }} {{ site.short_name or site.name }}</span>
+        <span class="small">© {{ year }} {{ site.short_name or site.name }}<a class="admin-link" href="/admin/" hidden>Admin</a></span>
       </div>
     </div>
   </footer>
 
   <script src="/js/site.js" defer></script>
+  {% if needs_contact %}<script src="/js/contact.js" defer></script>{% endif %}
   {% if needs_plot %}<script src="{{ lib.plotly }}" {% if sri.get(lib.plotly) %}integrity="{{ sri[lib.plotly] }}" {% endif %}crossorigin="anonymous" defer></script>
   <script src="/js/plots.js" defer></script>{% endif %}
   {% if needs_python %}<script src="{{ lib.pyodide }}" {% if sri.get(lib.pyodide) %}integrity="{{ sri[lib.pyodide] }}" {% endif %}crossorigin="anonymous" defer></script>

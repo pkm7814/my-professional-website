@@ -106,7 +106,7 @@ class BuiltSite(unittest.TestCase):
 
     def test_internal_links_resolve(self):
         for page in self.pages:
-            prefix = build.base_path(build.load_yaml(ROOT / "site.yaml", {}))
+            prefix = build.base_path(build.load_site())
             for href in re.findall(r'(?:href|src|data-model)="(/[^"#?]*)"', page.read_text(encoding="utf-8")):
                 self.assertTrue(href.startswith(prefix + "/"), f"link {href} misses the site prefix {prefix}")
                 target = self.out / href[len(prefix):].lstrip("/")
@@ -137,9 +137,34 @@ class BuiltSite(unittest.TestCase):
         g = (self.out / "gallery" / "index.html").read_text(encoding="utf-8")
         self.assertIn("International visits", g)
         self.assertIn("India", g)
+        self.assertIn("Macao", g)
         c = (self.out / "contact" / "index.html").read_text(encoding="utf-8")
         for field in ('name="name"', 'name="purpose"', 'name="message"', 'data-send="email"', 'data-send="whatsapp"'):
             self.assertIn(field, c)
+        self.assertIn('id="cf-purpose" name="purpose" type="text"', c, "purpose must be free text")
+        self.assertIn("/js/contact.js", c)
+
+    def test_admin_page_hidden_from_search(self):
+        a = (self.out / "admin" / "index.html").read_text(encoding="utf-8")
+        self.assertIn('name="robots" content="noindex', a)
+        self.assertIn("app.pagescms.org", a)
+        self.assertNotIn("/admin/", (self.out / "sitemap.xml").read_text())
+
+    def test_every_page_section_is_known_to_editor_and_site(self):
+        cfg = yaml.safe_load((ROOT / ".pages.yml").read_text(encoding="utf-8"))
+        editor_types = {b["name"] for b in cfg["components"]["page_sections"]["blocks"]}
+        template = (ROOT / "templates" / "_sections.html").read_text(encoding="utf-8")
+        for t in editor_types:
+            self.assertIn(f'"{t}"', template, f"section type {t} has no layout")
+        for page in (ROOT / "content").glob("*.md"):
+            meta, _ = build.split_front_matter(page.read_text(encoding="utf-8"))
+            for sec in meta.get("sections") or []:
+                self.assertIn(sec.get("type"), editor_types, f"{page.name}: unknown section {sec.get('type')}")
+
+    def test_editor_media_folders_exist(self):
+        cfg = yaml.safe_load((ROOT / ".pages.yml").read_text(encoding="utf-8"))
+        for m in cfg["media"]:
+            self.assertTrue((ROOT / m["input"]).is_dir(), f"media folder {m['input']} missing")
 
     def test_external_links_are_safe(self):
         for page in self.pages:

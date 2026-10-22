@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block main %}
+<article class="prose admin-page">
+  <h1>Website administration</h1>
+  <p class="lead">Edit every page, photo, video, section and menu item of this website.</p>
+
+  <div class="card admin-card">
+    <h2>Sign in to edit</h2>
+    <p>Editing is protected by your <strong>GitHub account sign-in</strong>, with passkey and two-factor
+      authentication. Only accounts with write access to this website's repository can change anything;
+      everyone else sees nothing.</p>
+    <p><a class="button primary admin-go" href="{{ site.admin_url }}" rel="noopener noreferrer">Open the editor</a></p>
+    <p class="help">Saved changes go live automatically in about one minute.</p>
+  </div>
+
+  <h2>What you can edit</h2>
+  <ul>
+    <li><strong>Profile &amp; menu</strong>: name, title, photo, CV, e-mail, WhatsApp, profile links, menu items.</li>
+    <li><strong>Pages</strong>: every page's title, header image and sections. Add, remove and reorder sections
+      (text, timeline, cards, highlights, news, columns, image, video, buttons) with headings and sub-headings.</li>
+    <li><strong>Gallery</strong>: countries/states, places, dates, descriptions, photos and captions.</li>
+    <li><strong>Publications</strong>: add, correct or hide entries (ORCID updates automatically).</li>
+  </ul>
+
+  <h2>This device</h2>
+  <p>The small <em>Admin</em> link in the footer is hidden from visitors. It appears only on devices where you switch it on here.</p>
+  <p>
+    <button type="button" class="button" data-admin-link="on">Show admin link on this device</button>
+    <button type="button" class="button" data-admin-link="off">Hide it</button>
+    <span class="help admin-state" aria-live="polite"></span>
+  </p>
+</article>
+<script src="/js/admin.js" defer></script>
+{% endblock %}

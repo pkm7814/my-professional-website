@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 {% block main %}
 <article class="prose">
-  <h1>{{ page.title or "Publications" }}</h1>
-  {% if page.subtitle %}<p class="lead">{{ page.subtitle }}</p>{% endif %}
+  {% include "_page_head.html" %}
   {{ content | safe }}
+  {% include "_sections.html" %}
   {% if not publications %}
   <p class="notice">Publications will appear here automatically from ORCID.</p>
   {% endif %}
@@ -17,7 +17,7 @@
       <span class="pub-venue">{% if p.journal %}<em>{{ p.journal }}</em>{% endif %}{% if p.details %}, {{ p.details }}{% endif %}{% if not p.authors_html and p.year %} · {{ p.year }}{% endif %}</span>
       <span class="pub-links">
         {% if p.doi %}<a href="https://doi.org/{{ p.doi }}" rel="noopener noreferrer" target="_blank">DOI: {{ p.doi }}</a>{% elif p.url %}<a href="{{ p.url }}" rel="noopener noreferrer" target="_blank">Link</a>{% endif %}
-        {% if p.pdf %}<a class="tag" href="/{{ p.pdf }}" download>PDF</a>{% endif %}
+        {% if p.pdf %}<a class="tag" href="{{ p.pdf | asset }}" download>PDF</a>{% endif %}
         {% if p.note %}<span class="tag">{{ p.note }}</span>{% endif %}
       </span>
     </li>
