@@ -43,7 +43,7 @@ jobs:
       - name: Build site (verifies library versions + integrity hashes)
         run: python build.py --strict
 
-      - uses: actions/configure-pages@v5
+      - uses: actions/configure-pages@v6
 
       - uses: actions/upload-pages-artifact@v5
         with:
