@@ -211,3 +211,7 @@ india:
           - image: /gallery-photos/mussoorie-10.jpg
           - image: /gallery-photos/mussoorie-11.jpg
           - image: /gallery-photos/mussoorie-12.jpg
+      - name: IIT Roorkee
+        date: 2021-2026
+        event: During Ph.D.
+        hidden: false
