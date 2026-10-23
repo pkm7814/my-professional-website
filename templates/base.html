@@ -52,6 +52,7 @@
     </div>
   </footer>
 
+  <a class="admin-fab admin-link" href="{{ site.admin_url }}" rel="noopener noreferrer" hidden>✎ Edit website</a>
   <script src="/js/site.js" defer></script>
   {% if needs_contact %}<script src="/js/contact.js" defer></script>{% endif %}
   {% if needs_plot %}<script src="{{ lib.plotly }}" {% if sri.get(lib.plotly) %}integrity="{{ sri[lib.plotly] }}" {% endif %}crossorigin="anonymous" defer></script>
