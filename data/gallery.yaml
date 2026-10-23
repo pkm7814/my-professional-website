@@ -100,7 +100,7 @@ india:
     places:
       - name: Jaisalmer
         date: January 2025
-        event: Field visit
+        event: Travel
         hidden: false
         photos:
           - image: /gallery-photos/jaisalmer-01.jpg
