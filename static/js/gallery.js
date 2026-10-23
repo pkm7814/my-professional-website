@@ -1,6 +1,16 @@
 // Photo viewer for the Gallery: click a photo to enlarge; ← → to browse within a place; Esc to close.
 (function () {
   document.addEventListener("DOMContentLoaded", () => {
+    // "Show all photos" buttons (extra photos are hidden only when JavaScript runs)
+    document.querySelectorAll(".g-show").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const place = btn.closest(".g-place");
+        const open = place.classList.toggle("g-expanded");
+        btn.setAttribute("aria-expanded", String(open));
+        btn.textContent = open ? btn.dataset.labelLess : btn.dataset.labelMore;
+      });
+    });
+
     const dlg = document.querySelector("dialog.lightbox");
     if (!dlg || typeof dlg.showModal !== "function") return; // old browsers: links open the image
     const img = dlg.querySelector("img");

@@ -33,11 +33,12 @@
         {% if p.photos %}
         <div class="g-grid">
           {% for ph in p.photos %}
-          <a class="g-item" href="{{ ph.full }}" data-caption="{{ ph.caption or p.title }}" data-group="{{ p.id }}">
+          <a class="g-item{% if loop.index > 8 %} g-more{% endif %}" href="{{ ph.full }}" data-caption="{{ ph.caption or p.title }}" data-group="{{ p.id }}">
             <img src="{{ ph.thumb }}" alt="{{ ph.alt }}" width="{{ ph.w }}" height="{{ ph.h }}" loading="lazy" decoding="async">
           </a>
           {% endfor %}
         </div>
+        {% if p.photos | length > 8 %}<button type="button" class="button small g-show" aria-expanded="false" data-label-more="Show all {{ p.photos | length }} photos" data-label-less="Show fewer photos">Show all {{ p.photos | length }} photos</button>{% endif %}
         {% else %}
         <p class="g-empty">Photographs will be added soon.</p>
         {% endif %}

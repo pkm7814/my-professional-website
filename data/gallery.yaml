@@ -1,51 +1,315 @@
 international_heading: International visits
 india_heading: India — home country visits
 international:
+- name: Hong Kong
+  places:
   - name: Hong Kong
-    places:
-      - name: Hong Kong
-        date: December 2025
-        event: 17th IACMAG Conference — paper presented
-        description: ""
-        photos: []
+    date: December 2025
+    event: 17th IACMAG Conference — paper presented
+    description: ''
+    photos:
+    - image: /gallery-photos/hong-kong-01.jpg
+      caption: ''
+    - image: /gallery-photos/hong-kong-02.jpg
+      caption: Tian Tan Buddha, Lantau Island
+    - image: /gallery-photos/hong-kong-03.jpg
+      caption: ''
+    - image: /gallery-photos/hong-kong-04.jpg
+      caption: ''
+    - image: /gallery-photos/hong-kong-05.jpg
+      caption: Yick Cheong Building, Quarry Bay
+    - image: /gallery-photos/hong-kong-06.jpg
+      caption: Hong Kong tram
+- name: Macao
+  places:
   - name: Macao
-    places:
-      - name: Macao
-        date: December 2025
-        event: One-day visit during the IACMAG 2025 trip to Hong Kong
-        description: ""
-        photos: []
-  - name: Japan
-    places:
-      - name: Osaka
-        date: May 2024
-        event: 8th International Conference on Earthquake Geotechnical Engineering (8ICEGE 2024)
-        description: ""
-        photos: []
-  - name: Kazakhstan
-    places:
-      - name: Astana
-        date: August 2023
-        event: 17th Asian Regional Conference on Soil Mechanics and Geotechnical Engineering (17ARC) — paper presented
-        description: ""
-        photos: []
+    date: December 2025
+    event: One-day visit during the IACMAG 2025 trip to Hong Kong
+    description: ''
+    photos: []
+- name: Japan
+  places:
+  - name: Osaka
+    date: May 2024
+    event: 8th International Conference on Earthquake Geotechnical Engineering (8ICEGE 2024)
+    description: ''
+    photos:
+    - image: /gallery-photos/osaka-01.jpg
+      caption: Osaka International Convention Center (Grand Cube Osaka) — venue of 8ICEGE 2024
+    - image: /gallery-photos/osaka-02.jpg
+      caption: ''
+    - image: /gallery-photos/osaka-03.jpg
+      caption: ''
+    - image: /gallery-photos/osaka-04.jpg
+      caption: ''
+    - image: /gallery-photos/osaka-05.jpg
+      caption: ''
+  - name: Hiroshima
+    date: May 2024
+    event: Visit during the 8ICEGE 2024 trip
+    description: ''
+    photos:
+    - image: /gallery-photos/hiroshima-01.jpg
+      caption: Atomic Bomb Dome, Hiroshima Peace Memorial
+    - image: /gallery-photos/hiroshima-02.jpg
+      caption: Atomic Bomb Dome, Hiroshima Peace Memorial
+    - image: /gallery-photos/hiroshima-03.jpg
+      caption: Atomic Bomb Dome, Hiroshima Peace Memorial
+    - image: /gallery-photos/hiroshima-04.jpg
+      caption: ''
+    - image: /gallery-photos/hiroshima-05.jpg
+      caption: ''
+    - image: /gallery-photos/hiroshima-06.jpg
+      caption: ''
+    - image: /gallery-photos/hiroshima-07.jpg
+      caption: ''
+    - image: /gallery-photos/hiroshima-08.jpg
+      caption: Hiroshima Castle
+    - image: /gallery-photos/hiroshima-09.jpg
+      caption: ''
+    - image: /gallery-photos/hiroshima-10.jpg
+      caption: Hiroshima tram
+- name: Kazakhstan
+  places:
+  - name: Astana
+    date: August 2023
+    event: 17th Asian Regional Conference on Soil Mechanics and Geotechnical Engineering (17ARC) — paper presented
+    description: ''
+    photos:
+    - image: /gallery-photos/astana-01.jpg
+      caption: ''
+    - image: /gallery-photos/astana-02.jpg
+      caption: ''
+    - image: /gallery-photos/astana-03.jpg
+      caption: ''
+    - image: /gallery-photos/astana-04.jpg
+      caption: ''
+    - image: /gallery-photos/astana-05.jpg
+      caption: Nur Alem sphere, EXPO 2017 site
+    - image: /gallery-photos/astana-06.jpg
+      caption: ''
+    - image: /gallery-photos/astana-07.jpg
+      caption: ''
+    - image: /gallery-photos/astana-08.jpg
+      caption: ''
+    - image: /gallery-photos/astana-09.jpg
+      caption: ''
+    - image: /gallery-photos/astana-10.jpg
+      caption: ''
+    - image: /gallery-photos/astana-11.jpg
+      caption: ''
+    - image: /gallery-photos/astana-12.jpg
+      caption: At the 17ARC conference venue
+    - image: /gallery-photos/astana-13.jpg
+      caption: Nur Alem sphere, EXPO 2017 site
+    - image: /gallery-photos/astana-14.jpg
+      caption: ''
+    - image: /gallery-photos/astana-15.jpg
+      caption: ''
+    - image: /gallery-photos/astana-16.jpg
+      caption: ''
+    - image: /gallery-photos/astana-17.jpg
+      caption: ''
+    - image: /gallery-photos/astana-18.jpg
+      caption: Baiterek Tower, Astana
+    - image: /gallery-photos/astana-19.jpg
+      caption: ''
+    - image: /gallery-photos/astana-20.jpg
+      caption: ''
+    - image: /gallery-photos/astana-21.jpg
+      caption: ''
+    - image: /gallery-photos/astana-22.jpg
+      caption: Indian delegation at 17ARC
 india:
-  - name: Rajasthan
-    places:
-      - name: Jaisalmer
-        date: ""
-        event: Field visit
-        description: ""
-        photos: []
-  - name: Uttarakhand
-    places:
-      - name: Munsiyari
-        date: ""
-        event: Field visit
-        description: ""
-        photos: []
-      - name: Chopta – Tungnath
-        date: ""
-        event: Field visit
-        description: ""
-        photos: []
+- name: Rajasthan
+  places:
+  - name: Jaisalmer
+    date: January 2025
+    event: Field visit
+    description: ''
+    photos:
+    - image: /gallery-photos/jaisalmer-01.jpg
+      caption: ''
+    - image: /gallery-photos/jaisalmer-02.jpg
+      caption: Jaisalmer Fort
+    - image: /gallery-photos/jaisalmer-03.jpg
+      caption: ''
+    - image: /gallery-photos/jaisalmer-04.jpg
+      caption: ''
+    - image: /gallery-photos/jaisalmer-05.jpg
+      caption: ''
+    - image: /gallery-photos/jaisalmer-06.jpg
+      caption: ''
+    - image: /gallery-photos/jaisalmer-07.jpg
+      caption: Jaisalmer Fort at night
+    - image: /gallery-photos/jaisalmer-08.jpg
+      caption: ''
+    - image: /gallery-photos/jaisalmer-09.jpg
+      caption: Jaisalmer Fort
+    - image: /gallery-photos/jaisalmer-10.jpg
+      caption: ''
+    - image: /gallery-photos/jaisalmer-11.jpg
+      caption: ''
+    - image: /gallery-photos/jaisalmer-12.jpg
+      caption: ''
+    - image: /gallery-photos/jaisalmer-13.jpg
+      caption: ''
+    - image: /gallery-photos/jaisalmer-14.jpg
+      caption: ''
+    - image: /gallery-photos/jaisalmer-15.jpg
+      caption: ''
+    - image: /gallery-photos/jaisalmer-16.jpg
+      caption: ''
+    - image: /gallery-photos/jaisalmer-17.jpg
+      caption: ''
+    - image: /gallery-photos/jaisalmer-18.jpg
+      caption: ''
+    - image: /gallery-photos/jaisalmer-19.jpg
+      caption: ''
+    - image: /gallery-photos/jaisalmer-20.jpg
+      caption: ''
+    - image: /gallery-photos/jaisalmer-21.jpg
+      caption: ''
+    - image: /gallery-photos/jaisalmer-22.jpg
+      caption: ''
+    - image: /gallery-photos/jaisalmer-23.jpg
+      caption: ''
+    - image: /gallery-photos/jaisalmer-24.jpg
+      caption: ''
+    - image: /gallery-photos/jaisalmer-25.jpg
+      caption: ''
+    - image: /gallery-photos/jaisalmer-26.jpg
+      caption: ''
+    - image: /gallery-photos/jaisalmer-27.jpg
+      caption: ''
+    - image: /gallery-photos/jaisalmer-28.jpg
+      caption: ''
+    - image: /gallery-photos/jaisalmer-29.jpg
+      caption: ''
+    - image: /gallery-photos/jaisalmer-30.jpg
+      caption: ''
+    - image: /gallery-photos/jaisalmer-31.jpg
+      caption: ''
+    - image: /gallery-photos/jaisalmer-32.jpg
+      caption: ''
+    - image: /gallery-photos/jaisalmer-33.jpg
+      caption: ''
+- name: Uttarakhand
+  places:
+  - name: Munsiyari
+    date: March 2025
+    event: Field visit
+    description: ''
+    photos:
+    - image: /gallery-photos/munsiyari-01.jpg
+      caption: ''
+    - image: /gallery-photos/munsiyari-02.jpg
+      caption: ''
+    - image: /gallery-photos/munsiyari-03.jpg
+      caption: Katarmal Sun Temple
+    - image: /gallery-photos/munsiyari-04.jpg
+      caption: Katarmal Sun Temple (ASI-protected monument)
+    - image: /gallery-photos/munsiyari-05.jpg
+      caption: ''
+    - image: /gallery-photos/munsiyari-06.jpg
+      caption: ''
+    - image: /gallery-photos/munsiyari-07.jpg
+      caption: ''
+    - image: /gallery-photos/munsiyari-08.jpg
+      caption: ''
+    - image: /gallery-photos/munsiyari-09.jpg
+      caption: ''
+    - image: /gallery-photos/munsiyari-10.jpg
+      caption: ''
+    - image: /gallery-photos/munsiyari-11.jpg
+      caption: ''
+    - image: /gallery-photos/munsiyari-12.jpg
+      caption: The Himalaya from Munsiyari
+    - image: /gallery-photos/munsiyari-13.jpg
+      caption: ''
+    - image: /gallery-photos/munsiyari-14.jpg
+      caption: ''
+    - image: /gallery-photos/munsiyari-15.jpg
+      caption: ''
+    - image: /gallery-photos/munsiyari-16.jpg
+      caption: ''
+    - image: /gallery-photos/munsiyari-17.jpg
+      caption: ''
+    - image: /gallery-photos/munsiyari-18.jpg
+      caption: ''
+  - name: Chopta – Tungnath
+    date: October 2024
+    event: Field visit
+    description: ''
+    photos:
+    - image: /gallery-photos/tungnath-01.jpg
+      caption: ''
+    - image: /gallery-photos/tungnath-02.jpg
+      caption: ''
+    - image: /gallery-photos/tungnath-03.jpg
+      caption: ''
+    - image: /gallery-photos/tungnath-04.jpg
+      caption: ''
+    - image: /gallery-photos/tungnath-05.jpg
+      caption: ''
+    - image: /gallery-photos/tungnath-06.jpg
+      caption: ''
+    - image: /gallery-photos/tungnath-07.jpg
+      caption: ''
+    - image: /gallery-photos/tungnath-08.jpg
+      caption: ''
+    - image: /gallery-photos/tungnath-09.jpg
+      caption: ''
+    - image: /gallery-photos/tungnath-10.jpg
+      caption: ''
+    - image: /gallery-photos/tungnath-11.jpg
+      caption: ''
+    - image: /gallery-photos/tungnath-12.jpg
+      caption: ''
+    - image: /gallery-photos/tungnath-13.jpg
+      caption: ''
+    - image: /gallery-photos/tungnath-14.jpg
+      caption: ''
+    - image: /gallery-photos/tungnath-15.jpg
+      caption: ''
+    - image: /gallery-photos/tungnath-16.jpg
+      caption: ''
+    - image: /gallery-photos/tungnath-17.jpg
+      caption: ''
+    - image: /gallery-photos/tungnath-18.jpg
+      caption: ''
+    - image: /gallery-photos/tungnath-19.jpg
+      caption: ''
+    - image: /gallery-photos/tungnath-20.jpg
+      caption: ''
+    - image: /gallery-photos/tungnath-21.jpg
+      caption: ''
+  - name: Mussoorie
+    date: February 2024
+    event: Field visit
+    description: ''
+    photos:
+    - image: /gallery-photos/mussoorie-01.jpg
+      caption: ''
+    - image: /gallery-photos/mussoorie-02.jpg
+      caption: ''
+    - image: /gallery-photos/mussoorie-03.jpg
+      caption: ''
+    - image: /gallery-photos/mussoorie-04.jpg
+      caption: ''
+    - image: /gallery-photos/mussoorie-05.jpg
+      caption: ''
+    - image: /gallery-photos/mussoorie-06.jpg
+      caption: ''
+    - image: /gallery-photos/mussoorie-07.jpg
+      caption: ''
+    - image: /gallery-photos/mussoorie-08.jpg
+      caption: ''
+    - image: /gallery-photos/mussoorie-09.jpg
+      caption: ''
+    - image: /gallery-photos/mussoorie-10.jpg
+      caption: ''
+    - image: /gallery-photos/mussoorie-11.jpg
+      caption: ''
+    - image: /gallery-photos/mussoorie-12.jpg
+      caption: ''

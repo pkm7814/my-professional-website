@@ -1,6 +1,7 @@
 // Menu toggle, light/dark theme, obfuscated e-mail links. No external calls.
 (function () {
   const root = document.documentElement;
+  root.classList.add("js");
   try {
     const saved = localStorage.getItem("theme");
     if (saved) root.dataset.theme = saved;
