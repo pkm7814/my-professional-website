@@ -13,13 +13,13 @@
       <a class="button" href="/contact/">Contact</a>
     </div>
     {% include "_links.html" %}
-    {% set m = site.scholar_metrics %}
+    {% set m = site.metrics %}
     {% if m and m.citations %}
-    <dl class="metrics" aria-label="Google Scholar metrics">
+    <dl class="metrics" aria-label="Citation metrics">
       <div><dt>Citations</dt><dd>{{ m.citations }}</dd></div>
       {% if m.h_index %}<div><dt>h-index</dt><dd>{{ m.h_index }}</dd></div>{% endif %}
       {% if m.i10_index %}<div><dt>i10-index</dt><dd>{{ m.i10_index }}</dd></div>{% endif %}
-      {% if m.updated %}<p class="muted small">Google Scholar, {{ m.updated }}</p>{% endif %}
+      <p class="muted small">{{ m.source }}{% if m.updated %}, {{ m.updated }}{% endif %}</p>
     </dl>
     {% endif %}
   </div>

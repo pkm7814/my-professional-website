@@ -378,6 +378,15 @@ def load_site() -> dict:
     """Technical settings (site.yaml) + everything editable (data/profile.yaml)."""
     site = load_yaml(ROOT / "site.yaml", {}) or {}
     site.update(load_yaml(ROOT / "data" / "profile.yaml", {}) or {})
+    # Citation numbers: typed-in Google Scholar figures win; otherwise automatic OpenAlex ones.
+    manual = site.get("scholar_metrics") or {}
+    auto = load_yaml(ROOT / "data" / "metrics_auto.yaml", {}) or {}
+    if manual.get("citations") not in (None, ""):
+        site["metrics"] = dict(manual, source="Google Scholar")
+    elif auto.get("citations"):
+        site["metrics"] = auto
+    else:
+        site["metrics"] = {}
     email = str(site.get("email") or "")
     site["email_user"], _, site["email_domain"] = email.partition("@")
     wa = re.sub(r"\D", "", str(site.get("whatsapp") or ""))

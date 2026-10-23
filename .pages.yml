@@ -180,7 +180,7 @@ content:
           - { name: github, label: GitHub, type: string }
       - { name: orcid_id, label: "ORCID iD (publications sync automatically)", type: string }
       - name: scholar_metrics
-        label: Google Scholar numbers (shown on the home page)
+        label: "Google Scholar numbers — optional. Leave Citations empty to show automatic numbers (OpenAlex, updated daily)."
         type: object
         fields:
           - { name: citations, label: Citations, type: string }

@@ -1,5 +1,5 @@
 # Builds and publishes the website to GitHub Pages.
-# Runs on every push to main (live in ~1 minute), weekly to refresh ORCID publications,
+# Runs on every push to main (live in ~1 minute), daily to refresh ORCID publications and citations,
 # and on demand from the Actions tab ("Run workflow").
 name: Build and deploy website
 
@@ -7,7 +7,7 @@ on:
   push:
     branches: [main]
   schedule:
-    - cron: "17 3 * * 1"        # Mondays 03:17 UTC (08:47 IST)
+    - cron: "17 0 * * *"        # daily 00:17 UTC (05:47 IST): publications + citation metrics
   workflow_dispatch:
 
 permissions:
@@ -36,6 +36,11 @@ jobs:
 
       - name: Refresh publications from ORCID
         run: python scripts/sync_orcid.py
+
+      - name: Refresh citation metrics (OpenAlex)
+        run: python scripts/sync_metrics.py
+        env:
+          OPENALEX_API_KEY: ${{ secrets.OPENALEX_API_KEY }}
 
       - name: Test calculators and site
         run: python -m unittest discover -s tests -v
