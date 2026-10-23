@@ -1,5 +1,5 @@
-international_heading: International visits
-india_heading: India — home country visits
+international_heading: International Travel
+india_heading: India — home country Travel
 international:
   - name: Hong Kong - Macao
     hidden: false
@@ -144,7 +144,7 @@ india:
     places:
       - name: Munsiyari
         date: March 2025
-        event: Field visit
+        event: Travel
         hidden: false
         photos:
           - image: /gallery-photos/munsiyari-01.jpg
@@ -170,7 +170,7 @@ india:
           - image: /gallery-photos/munsiyari-18.jpg
       - name: Chopta – Tungnath
         date: October 2024
-        event: Field visit
+        event: Travel
         hidden: false
         photos:
           - image: /gallery-photos/tungnath-01.jpg
@@ -196,7 +196,7 @@ india:
           - image: /gallery-photos/tungnath-21.jpg
       - name: Mussoorie
         date: February 2024
-        event: Field visit
+        event: Travel
         hidden: false
         photos:
           - image: /gallery-photos/mussoorie-01.jpg
