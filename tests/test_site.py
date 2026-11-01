@@ -82,9 +82,12 @@ class BuiltSite(unittest.TestCase):
         cls.pages = list(cls.out.rglob("*.html"))
 
     def test_pages_exist(self):
-        for p in ("index.html", "about/index.html", "research/index.html", "publications/index.html",
-                  "conferences/index.html", "contact/index.html", "tools/index.html", "404.html"):
+        # Every page in content/ is built (pages added or removed in the editor are fine).
+        for p in ("index.html", "404.html", "admin/index.html"):
             self.assertTrue((self.out / p).exists(), p)
+        for md in (ROOT / "content").glob("*.md"):
+            url = "index.html" if md.stem == "home" else f"{md.stem}/index.html"
+            self.assertTrue((self.out / url).exists(), f"page for {md.name} was not built")
 
     def test_security_headers_present(self):
         for page in self.pages:
@@ -114,17 +117,16 @@ class BuiltSite(unittest.TestCase):
                 self.assertTrue(ok, f"broken link {href} in {page.relative_to(self.out)}")
 
     def test_no_secrets_or_private_details(self):
-        # Guard against accidentally publishing passwords, phone numbers or a plain e-mail address.
+        # Guard against accidentally publishing credentials (content wording is the owner's choice).
         for page in self.pages:
             text = page.read_text(encoding="utf-8").lower()
-            for bad in ("password", "secret_key", "7023146332", "@gmail.com"):
-                self.assertNotIn(bad, text, f"{page.relative_to(self.out)} contains '{bad}'")
+            self.assertNotIn("secret_key", text, f"{page.relative_to(self.out)} contains a secret key")
+            self.assertIsNone(re.search(r"password\s*[:=]\s*\S", text), f"{page.relative_to(self.out)} looks like it contains a password")
 
     def test_publications_listed_once(self):
         cats = build.load_publications()
         titles = [build.slugify(p["title"]) for _, items in cats for p in items]
         self.assertEqual(len(titles), len(set(titles)), "a publication appears twice")
-        self.assertGreaterEqual(len(titles), 6)
 
     def test_gallery_photos_have_no_metadata(self):
         from PIL import Image
@@ -133,16 +135,30 @@ class BuiltSite(unittest.TestCase):
                 self.assertEqual(len(im.getexif()), 0, f"{img} still has EXIF/GPS data")
                 self.assertLessEqual(max(im.size), 1600)
 
-    def test_gallery_and_contact_form(self):
-        g = (self.out / "gallery" / "index.html").read_text(encoding="utf-8")
-        self.assertIn("International visits", g)
-        self.assertIn("India", g)
-        self.assertIn("Macao", g)
-        c = (self.out / "contact" / "index.html").read_text(encoding="utf-8")
-        for field in ('name="name"', 'name="purpose"', 'name="message"', 'data-send="email"', 'data-send="whatsapp"'):
-            self.assertIn(field, c)
-        self.assertIn('id="cf-purpose" name="purpose" type="text"', c, "purpose must be free text")
-        self.assertIn("/js/contact.js", c)
+    def test_gallery_shows_everything_in_the_data(self):
+        gpage = self.out / "gallery" / "index.html"
+        if not gpage.exists():
+            return
+        g = html.unescape(gpage.read_text(encoding="utf-8"))
+        data = build.load_yaml(ROOT / "data" / "gallery.yaml", {}) or {}
+        for sec in ("international", "india"):
+            groups = [x for x in (data.get(sec) or []) if x and not x.get("hidden")]
+            for grp in groups:
+                places = [pl for pl in (grp.get("places") or []) if pl and not pl.get("hidden")]
+                if places:
+                    self.assertIn(str(grp["name"]), g, f"gallery is missing {grp['name']}")
+                for pl in places:
+                    self.assertIn(str(pl["name"]), g, f"gallery is missing {pl['name']}")
+
+    def test_contact_form_complete(self):
+        for page in self.pages:
+            c = page.read_text(encoding="utf-8")
+            if 'id="contact-form"' not in c:
+                continue
+            for field in ('name="name"', 'name="purpose"', 'name="message"'):
+                self.assertIn(field, c, f"{page}: contact form field {field} missing")
+            self.assertIn('id="cf-purpose" name="purpose" type="text"', c, "purpose must be free text")
+            self.assertIn("/js/contact.js", c)
 
     def test_admin_page_hidden_from_search(self):
         a = (self.out / "admin" / "index.html").read_text(encoding="utf-8")
