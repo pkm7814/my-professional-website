@@ -150,6 +150,15 @@ class BuiltSite(unittest.TestCase):
                 for pl in places:
                     self.assertIn(str(pl["name"]), g, f"gallery is missing {pl['name']}")
 
+    def test_every_album_has_a_page(self):
+        gpage = self.out / "gallery" / "index.html"
+        if not gpage.exists():
+            return
+        for href in re.findall(r'class="album" href="([^"]+)"', gpage.read_text(encoding="utf-8")):
+            prefix = build.base_path(build.load_site())
+            target = self.out / href[len(prefix):].lstrip("/") / "index.html"
+            self.assertTrue(target.exists(), f"album page {href} missing")
+
     def test_contact_form_complete(self):
         for page in self.pages:
             c = page.read_text(encoding="utf-8")

@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block main %}
+<article class="prose gallery-page album-page">
+  <p class="crumbs"><a href="/gallery/">{{ gallery_page.title or "Gallery" }}</a> / <a href="/gallery/#{{ group.id }}">{{ group.title }}</a> /</p>
+  <div class="album-head">
+    <h1>{{ album.title }}</h1>
+    {% if album.info.date %}<span class="g-date">{{ album.info.date }}</span>{% endif %}
+  </div>
+  {% if album.info.event %}<p class="lead">{{ album.info.event }}</p>{% endif %}
+  {% if album.info.description %}<div class="g-desc">{{ album.info.description | md }}</div>{% endif %}
+
+  {% if album.photos %}
+  <p class="muted small">{{ album.photos | length }} photo{{ "s" if album.photos | length != 1 }} · click a photo to enlarge</p>
+  <div class="g-grid album-grid">
+    {% for ph in album.photos %}
+    <a class="g-item" href="{{ ph.full }}" data-caption="{{ ph.caption or album.title }}" data-group="{{ album.id }}">
+      <img src="{{ ph.thumb }}" alt="{{ ph.alt }}" width="{{ ph.w }}" height="{{ ph.h }}" loading="lazy" decoding="async">
+    </a>
+    {% endfor %}
+  </div>
+  {% else %}
+  <p class="g-empty">Photographs will be added soon.</p>
+  {% endif %}
+
+  {# other albums from the same country / state #}
+  {% set others = group.places | rejectattr("id", "equalto", album.id) | list %}
+  {% if others %}
+  <h2 class="album-more-title">More from {{ group.title }}</h2>
+  <div class="albums">
+    {% for p in others %}
+    <a class="album" href="/gallery/{{ p.id }}/">
+      <span class="album-cover">
+        {% if p.cover %}<img src="{{ p.cover.thumb }}" alt="" width="{{ p.cover.w }}" height="{{ p.cover.h }}" loading="lazy" decoding="async">
+        {% else %}<span class="album-empty" aria-hidden="true">📷</span>{% endif %}
+        <span class="album-count">{% if p.photos %}{{ p.photos | length }} photo{{ "s" if p.photos | length != 1 }}{% else %}Coming soon{% endif %}</span>
+      </span>
+      <span class="album-body">
+        <span class="album-title">{{ p.title }}</span>
+        {% if p.info.date %}<span class="album-date">{{ p.info.date }}</span>{% endif %}
+      </span>
+    </a>
+    {% endfor %}
+  </div>
+  {% endif %}
+  <p><a class="button" href="/gallery/">← Back to Gallery</a></p>
+</article>
+
+<dialog class="lightbox" aria-label="Photo viewer">
+  <button class="lb-close" aria-label="Close">×</button>
+  <button class="lb-prev" aria-label="Previous photo">‹</button>
+  <figure><img alt=""><figcaption></figcaption></figure>
+  <button class="lb-next" aria-label="Next photo">›</button>
+</dialog>
+<script src="/js/gallery.js" defer></script>
+{% endblock %}

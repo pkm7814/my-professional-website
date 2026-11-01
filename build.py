@@ -363,7 +363,16 @@ def build_gallery(out_dir: Path) -> list[dict]:
                     photos.append({"full": res["full"], "thumb": res["thumb"],
                                    "w": res["thumb_size"][0], "h": res["thumb_size"][1], "caption": caption,
                                    "alt": caption or f"{pl['name']}, {g['name']} — photo {i}"})
-                places.append({"id": pid, "title": pl["name"], "info": pl, "photos": photos})
+                cover = None
+                if pl.get("cover") and _photo_source(pl["cover"]):
+                    src = _photo_source(pl["cover"])
+                    if src not in done:
+                        done[src] = _process_photo(src, out_dir, slugify(src.stem) or f"photo-{len(done)+1}")
+                    r = done[src]
+                    cover = {"thumb": r["thumb"], "w": r["thumb_size"][0], "h": r["thumb_size"][1]}
+                elif photos:
+                    cover = {k: photos[0][k] for k in ("thumb", "w", "h")}
+                places.append({"id": pid, "title": pl["name"], "info": pl, "photos": photos, "cover": cover})
             if places:
                 groups.append({"id": gid, "title": g["name"], "places": places})
         if groups:
@@ -474,6 +483,14 @@ def build(include_drafts=False, strict=False) -> Path:
             extra["publications"] = load_publications(site.get("highlight_author", ""))
         if template == "gallery.html":
             extra["gallery"] = build_gallery(OUT / "gallery")
+            # one page per album (place): /gallery/<album-id>/
+            for sec in extra["gallery"]:
+                for grp in sec["groups"]:
+                    for alb in grp["places"]:
+                        write(f"/gallery/{alb['id']}/", "album.html",
+                              page={"title": f"{alb['title']} — {grp['title']}",
+                                    "description": f"Photos from {alb['title']}, {grp['title']}."},
+                              album=alb, group=grp, section=sec, gallery_page=meta)
         write(url, template, needs_python=flags["python"], page=meta, content=content, sections=sections,
               needs_plot=flags["plot"], needs_math=has_math,
               needs_contact=any(s.get("type") == "contact_form" for s in sections), **extra)

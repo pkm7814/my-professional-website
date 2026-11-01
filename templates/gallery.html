@@ -22,28 +22,22 @@
     {% for g in sec.groups %}
     <section class="g-group" id="{{ g.id }}">
       <h3>{{ g.title }}</h3>
-      {% for p in g.places %}
-      <section class="g-place" id="{{ p.id }}">
-        <div class="g-place-head">
-          <h4>{{ p.title }}</h4>
-          {% if p.info.date %}<span class="g-date">{{ p.info.date }}</span>{% endif %}
-        </div>
-        {% if p.info.event %}<p class="g-event">{{ p.info.event }}</p>{% endif %}
-        {% if p.info.description %}<div class="g-desc">{{ p.info.description | md }}</div>{% endif %}
-        {% if p.photos %}
-        <div class="g-grid">
-          {% for ph in p.photos %}
-          <a class="g-item{% if loop.index > 8 %} g-more{% endif %}" href="{{ ph.full }}" data-caption="{{ ph.caption or p.title }}" data-group="{{ p.id }}">
-            <img src="{{ ph.thumb }}" alt="{{ ph.alt }}" width="{{ ph.w }}" height="{{ ph.h }}" loading="lazy" decoding="async">
-          </a>
-          {% endfor %}
-        </div>
-        {% if p.photos | length > 8 %}<button type="button" class="button small g-show" aria-expanded="false" data-label-more="Show all {{ p.photos | length }} photos" data-label-less="Show fewer photos">Show all {{ p.photos | length }} photos</button>{% endif %}
-        {% else %}
-        <p class="g-empty">Photographs will be added soon.</p>
-        {% endif %}
-      </section>
-      {% endfor %}
+      <div class="albums">
+        {% for p in g.places %}
+        <a class="album" href="/gallery/{{ p.id }}/">
+          <span class="album-cover">
+            {% if p.cover %}<img src="{{ p.cover.thumb }}" alt="" width="{{ p.cover.w }}" height="{{ p.cover.h }}" loading="lazy" decoding="async">
+            {% else %}<span class="album-empty" aria-hidden="true">📷</span>{% endif %}
+            <span class="album-count">{% if p.photos %}{{ p.photos | length }} photo{{ "s" if p.photos | length != 1 }}{% else %}Coming soon{% endif %}</span>
+          </span>
+          <span class="album-body">
+            <span class="album-title">{{ p.title }}</span>
+            {% if p.info.date %}<span class="album-date">{{ p.info.date }}</span>{% endif %}
+            {% if p.info.event %}<span class="album-event">{{ p.info.event }}</span>{% endif %}
+          </span>
+        </a>
+        {% endfor %}
+      </div>
     </section>
     {% endfor %}
   </section>

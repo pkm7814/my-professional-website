@@ -7,6 +7,7 @@ international:
       - name: Hong Kong
         date: December 2025
         event: 17th IACMAG Conference paper presented and Travel
+        cover: /gallery-photos/hong-kong-02.jpg
         hidden: false
         photos:
           - image: /gallery-photos/hong-kong-01.jpg
@@ -65,6 +66,7 @@ international:
         date: August 2023
         event: 17th Asian Regional Conference on Soil Mechanics and Geotechnical
           Engineering (17ARC) — paper presented
+        cover: /gallery-photos/astana-18.jpg
         hidden: false
         photos:
           - image: /gallery-photos/astana-01.jpg
@@ -101,6 +103,7 @@ india:
       - name: Jaisalmer
         date: January 2025
         event: Travel
+        cover: /gallery-photos/jaisalmer-07.jpg
         hidden: false
         photos:
           - image: /gallery-photos/jaisalmer-01.jpg
@@ -171,6 +174,7 @@ india:
       - name: Chopta – Tungnath
         date: October 2024
         event: Travel
+        cover: /gallery-photos/tungnath-05.jpg
         hidden: false
         photos:
           - image: /gallery-photos/tungnath-01.jpg
@@ -214,4 +218,11 @@ india:
       - name: IIT Roorkee
         date: 2021-2026
         event: During Ph.D.
+        hidden: false
+  - name: Himachal Pradesh
+    hidden: false
+    places:
+      - name: IIT Mandi
+        date: 2026 – present
+        event: During Postdoctoral research
         hidden: false

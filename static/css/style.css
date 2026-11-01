@@ -182,6 +182,26 @@ input[aria-invalid] { border-color: var(--fail) !important; outline-color: var(-
 .admin-fab { position: fixed; right: 18px; bottom: 18px; z-index: 20; margin: 0; background: var(--accent); color: var(--accent-ink) !important;
   padding: .6rem 1rem; border-radius: 999px; font: 600 .92rem var(--sans); text-decoration: none; box-shadow: 0 8px 24px rgb(0 0 0 / .25); }
 .admin-fab[hidden] { display: none; }
+/* ---- gallery albums ---- */
+.albums { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; }
+.album { display: flex; flex-direction: column; background: var(--surface); border: 1px solid var(--line); border-radius: 12px;
+  overflow: hidden; text-decoration: none; color: var(--text); transition: transform .2s ease, box-shadow .2s ease, border-color .2s; }
+.album:hover, .album:focus-visible { transform: translateY(-3px); box-shadow: 0 12px 28px rgb(15 30 60 / .14); border-color: var(--accent); }
+.album-cover { position: relative; display: block; aspect-ratio: 4 / 3; background: var(--grid); overflow: hidden; }
+.album-cover img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .3s ease; }
+.album:hover .album-cover img { transform: scale(1.05); }
+.album-empty { position: absolute; inset: 0; display: grid; place-items: center; font-size: 2.2rem; opacity: .45; }
+.album-count { position: absolute; right: .5rem; bottom: .5rem; background: rgb(0 0 0 / .62); color: #fff; font-size: .78rem;
+  font-weight: 600; padding: .15rem .55rem; border-radius: 999px; }
+.album-body { display: flex; flex-direction: column; gap: .1rem; padding: .7rem .85rem .85rem; }
+.album-title { font-weight: 600; font-size: 1.02rem; }
+.album-date { font-size: .82rem; color: var(--accent); font-weight: 600; }
+.album-event { font-size: .86rem; color: var(--muted); line-height: 1.4; }
+.album-head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.album-head h1 { margin-bottom: .2rem; }
+.album-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+.album-more-title { font-size: 1.2rem; margin-top: 2.5rem; }
+
 @media print { .admin-fab { display: none; } }
 .admin-card { padding: 1.2rem 1.4rem; margin: 1.5rem 0; } .admin-card h2 { margin-top: 0; }
 .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }

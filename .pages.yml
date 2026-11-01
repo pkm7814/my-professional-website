@@ -242,6 +242,7 @@ content:
               - { name: name, label: Place, type: string, required: true }
               - { name: date, label: "Date (e.g. May 2024)", type: string }
               - { name: event, label: "Event / purpose", type: string }
+              - { name: cover, label: "Album cover photo (optional — otherwise the first photo)", type: image, options: { media: gallery } }
               - { name: description, label: Description, type: rich-text, options: { format: markdown } }
               - { name: hidden, label: "Hide", type: boolean }
               - name: photos
@@ -266,6 +267,7 @@ content:
               - { name: name, label: Place, type: string, required: true }
               - { name: date, label: "Date (e.g. May 2024)", type: string }
               - { name: event, label: "Event / purpose", type: string }
+              - { name: cover, label: "Album cover photo (optional — otherwise the first photo)", type: image, options: { media: gallery } }
               - { name: description, label: Description, type: rich-text, options: { format: markdown } }
               - { name: hidden, label: "Hide", type: boolean }
               - name: photos
