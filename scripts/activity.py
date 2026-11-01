@@ -134,14 +134,6 @@ def build_activity(root: Path, limit: int = 8, max_commits: int = 60) -> list[di
             if parent and "data/publications_manual.yaml" in files:
                 found += _pub_changes(_yaml_at(root, parent, "data/publications_manual.yaml"),
                                       _yaml_at(root, sha, "data/publications_manual.yaml"))
-            if parent:
-                for f in files:
-                    m = re.fullmatch(r"content/([\w-]+)\.md", f)
-                    if m and m.group(1) != "gallery" and _git(root, "cat-file", "-e", f"{parent}:{f}") is not None:
-                        page = m.group(1)
-                        url = "/" if page == "home" else f"/{page}/"
-                        found.append({"text": f"{PAGE_NAMES.get(page, page.replace('-', ' ').title())} page updated",
-                                      "link": url, "kind": "page"})
             for it in found:
                 it["dt"] = dt
             items += found

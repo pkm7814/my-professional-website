@@ -15,9 +15,18 @@
     </div>
 
   {% elif t == "news" %}
-    <dl class="news">
-      {% for it in s["items"] or [] %}<dt>{{ it.date }}</dt><dd>{{ it.text | mdi }}</dd>{% endfor %}
-    </dl>
+    {% set feed = news_feed(s) %}
+    <ul class="news-list">
+      {% for it in feed %}
+      <li>
+        {% if it.link %}<a class="news-item" href="{{ it.link | asset }}"{% if it.link.startswith('http') %} target="_blank" rel="noopener noreferrer"{% endif %}>{% else %}<span class="news-item">{% endif %}
+          <span class="news-date">{{ it.date }}</span>
+          <span class="news-text">{% if it.kind == "gallery" %}<span class="news-tag">Gallery</span>{% elif it.kind == "publication" %}<span class="news-tag">Publication</span>{% endif %}{{ it.text | mdi }}</span>
+          {% if it.link %}<span class="news-arrow" aria-hidden="true">→</span>{% endif %}
+        {% if it.link %}</a>{% else %}</span>{% endif %}
+      </li>
+      {% endfor %}
+    </ul>
 
   {% elif t == "timeline" %}
     <ol class="timeline">

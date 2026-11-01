@@ -83,13 +83,17 @@ components:
         label: News list
         fields:
           - { name: heading, label: Heading, type: string }
+          - { name: auto, label: "Also show automatic updates (new albums, photos, publications, announcements)", type: boolean }
+          - { name: limit, label: "How many items to show (default 8)", type: number }
+          - { name: auto_limit, label: "Max automatic updates among them (default 4)", type: number }
           - name: items
             label: News items
             type: object
             list: { collapsible: { collapsed: true, summary: "{date} — {text}" } }
             fields:
-              - { name: date, label: Date, type: string }
+              - { name: date, label: "Date (e.g. Sep 2026)", type: string }
               - { name: text, label: Text, type: text }
+              - { name: link, label: "Link (optional, e.g. /about/, /gallery/ or https://...)", type: string }
       - name: columns
         label: Two columns
         fields:

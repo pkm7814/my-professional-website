@@ -421,6 +421,52 @@ def youtube_id(value) -> str:
     return m.group(1) if m else (v if re.fullmatch(r"[\w-]{6,}", v) else "")
 
 
+# ------------------------------------------------------------- news feed
+
+_MONTHS = {m: i for i, m in enumerate(["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"], 1)}
+
+
+def _news_sort_key(date_text: str):
+    """'Sep 2026' -> (2026, 9, 1); '2025' -> (2025, 0, 0); '1 Nov 2026' -> (2026, 11, 1); unknown -> (0, 0, 0)."""
+    t = str(date_text or "").lower()
+    y = re.search(r"(19|20)\d{2}", t)
+    m = next((v for k, v in _MONTHS.items() if k in t), 0)
+    d = re.match(r"\s*(\d{1,2})\s", t)
+    return (int(y.group(0)) if y else 0, m, int(d.group(1)) if d and m else (1 if m else 0))
+
+
+def make_news_feed():
+    """Template helper: merge the owner's news items with automatic updates (if switched on)."""
+    auto_cache = {}
+
+    def feed(section: dict) -> list[dict]:
+        items = [{"date": str(i.get("date") or ""), "text": str(i.get("text") or ""), "link": str(i.get("link") or ""),
+                  "kind": "news"} for i in (section.get("items") or []) if isinstance(i, dict) and i.get("text")]
+        if section.get("auto"):
+            if "items" not in auto_cache:
+                try:
+                    sys.path.insert(0, str(ROOT / "scripts"))
+                    from activity import build_activity
+                    auto_cache["items"] = build_activity(ROOT, limit=12)
+                except Exception as exc:  # the feed must never break the site
+                    print(f"warning: automatic updates skipped ({exc})")
+                    auto_cache["items"] = []
+            try:
+                auto_max = int(section.get("auto_limit") or 4)
+            except (TypeError, ValueError):
+                auto_max = 4
+            items += [{"date": a["date"], "text": a["text"], "link": a.get("link", ""), "kind": a.get("kind", "news")}
+                      for a in auto_cache["items"][:auto_max]]
+        items.sort(key=lambda i: _news_sort_key(i["date"]), reverse=True)  # stable: equal dates keep order
+        try:
+            limit = int(section.get("limit") or 8)
+        except (TypeError, ValueError):
+            limit = 8
+        return items[:limit]
+
+    return feed
+
+
 # ------------------------------------------------------------------ build
 
 
@@ -447,6 +493,7 @@ def build(include_drafts=False, strict=False) -> Path:
                       autoescape=select_autoescape(["html"]))
     env.globals.update(site=site, lib=urls, sri=sri, year=date.today().year)
     env.filters.update(md=md_block, mdi=md_inline, asset=asset, youtube_id=youtube_id)
+    env.globals["news_feed"] = make_news_feed()
     shortcodes = Shortcodes(env, tools, include_drafts)
     prefix = base_path(site)
 
@@ -483,14 +530,6 @@ def build(include_drafts=False, strict=False) -> Path:
         url = "/" if path.stem == "home" else f"/{path.stem}/"
         template = special.get(path.stem) or (meta.get("template", "page") + ".html")
         extra = {}
-        if template == "home.html":
-            try:
-                sys.path.insert(0, str(ROOT / "scripts"))
-                from activity import build_activity
-                extra["activity"] = build_activity(ROOT)
-            except Exception as exc:  # the feed must never break the site
-                print(f"warning: activity feed skipped ({exc})")
-                extra["activity"] = []
         if template == "publications.html":
             extra["publications"] = load_publications(site.get("highlight_author", ""))
         if template == "gallery.html":

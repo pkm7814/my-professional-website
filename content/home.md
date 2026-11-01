@@ -22,13 +22,19 @@ sections:
         text: Hong Kong · Kazakhstan
   - type: news
     heading: Recent news
+    auto: true
+    limit: 8
     items:
       - date: Sep 2026
         text: Joined IIT Mandi as Senior Project Scientist (Postdoctoral) on the PoDRI project.
+        link: /about/
       - date: Aug 2026
         text: Completed Ph.D. in Geotechnical Engineering at IIT Roorkee.
+        link: /about/
       - date: Dec 2025
         text: Presented a paper at the 17th IACMAG Conference, Hong Kong, supported by the Department of Civil Engineering, IIT Roorkee and the ISSMGE Foundation.
+        link: /conferences/
       - date: "2025"
         text: Paper published in *Geotechnical and Geological Engineering* (Springer).
+        link: /publications/
 ---
