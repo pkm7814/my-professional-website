@@ -483,6 +483,14 @@ def build(include_drafts=False, strict=False) -> Path:
         url = "/" if path.stem == "home" else f"/{path.stem}/"
         template = special.get(path.stem) or (meta.get("template", "page") + ".html")
         extra = {}
+        if template == "home.html":
+            try:
+                sys.path.insert(0, str(ROOT / "scripts"))
+                from activity import build_activity
+                extra["activity"] = build_activity(ROOT)
+            except Exception as exc:  # the feed must never break the site
+                print(f"warning: activity feed skipped ({exc})")
+                extra["activity"] = []
         if template == "publications.html":
             extra["publications"] = load_publications(site.get("highlight_author", ""))
         if template == "gallery.html":

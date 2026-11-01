@@ -319,3 +319,16 @@ content:
       - { name: pdf, label: "PDF (optional)", type: file, options: { media: documents } }
       - { name: note, label: "Note (e.g. Best paper award)", type: string }
       - { name: hidden, label: "Hide this entry", type: boolean }
+
+  - name: announcements
+    label: "What's new — announcements"
+    type: file
+    path: data/announcements.yaml
+    format: yaml
+    list:
+      collapsible: { collapsed: true, summary: "{date} — {text}" }
+    fields:
+      - { name: date, label: "Date", type: date }
+      - { name: text, label: "Announcement (short, one line)", type: string, required: true }
+      - { name: link, label: "Link (optional, e.g. /publications/ or https://...)", type: string }
+      - { name: hidden, label: "Hide", type: boolean }

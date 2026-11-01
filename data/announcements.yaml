@@ -1,0 +1,3 @@
+# Announcements shown in the "What's new" box on the Home page (newest first).
+# Fields: date (YYYY-MM-DD), text, link (optional, e.g. /publications/ or https://...), hidden.
+[]

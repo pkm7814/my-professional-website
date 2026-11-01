@@ -28,4 +28,19 @@
   {{ content | safe }}
   {% include "_sections.html" %}
 </article>
+{% if activity %}
+<aside class="whatsnew" aria-label="What's new" data-latest="{{ activity[0].date }}|{{ activity[0].text }}">
+  <button type="button" class="wn-toggle" aria-expanded="true" aria-controls="wn-panel">
+    <span aria-hidden="true">🔔</span> What's new <span class="wn-dot" aria-hidden="true"></span>
+  </button>
+  <div class="wn-panel" id="wn-panel">
+    <ul>
+      {% for a in activity %}
+      <li>{% if a.link %}<a href="{{ a.link | asset }}">{% endif %}<span class="wn-date">{{ a.date }}</span><span class="wn-text">{{ a.text }}</span>{% if a.link %}</a>{% endif %}</li>
+      {% endfor %}
+    </ul>
+  </div>
+</aside>
+<script src="/js/whatsnew.js" defer></script>
+{% endif %}
 {% endblock %}
