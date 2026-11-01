@@ -225,3 +225,10 @@ india:
           - image: /gallery-photos/mussoorie-10.jpg
           - image: /gallery-photos/mussoorie-11.jpg
           - image: /gallery-photos/mussoorie-12.jpg
+  - name: Himachal Pradesh
+    hidden: false
+    places:
+      - name: Prashar Lake
+        date: ""
+        event: Travel
+        hidden: false
