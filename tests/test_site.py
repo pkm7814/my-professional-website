@@ -141,6 +141,9 @@ class BuiltSite(unittest.TestCase):
             return
         g = html.unescape(gpage.read_text(encoding="utf-8"))
         data = build.load_yaml(ROOT / "data" / "gallery.yaml", {}) or {}
+        for alb in data.get("academic") or []:
+            if alb and alb.get("name") and not alb.get("hidden"):
+                self.assertIn(str(alb["name"]), g, f"gallery is missing {alb['name']}")
         for sec in ("international", "india"):
             groups = [x for x in (data.get(sec) or []) if x and not x.get("hidden")]
             for grp in groups:

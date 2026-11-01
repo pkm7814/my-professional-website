@@ -10,7 +10,7 @@
     {% for sec in gallery %}
     <div class="g-jump-row">
       <span class="g-jump-label">{{ sec.title.split(" — ")[0] }}</span>
-      {% for g in sec.groups %}<a class="chip" href="#{{ g.id }}">{{ g.title }}</a>{% endfor %}
+      {% for g in sec.groups %}{% if g.title %}<a class="chip" href="#{{ g.id }}">{{ g.title }}</a>{% else %}{% for p in g.places %}<a class="chip" href="/gallery/{{ p.id }}/">{{ p.title }}</a>{% endfor %}{% endif %}{% endfor %}
     </div>
     {% endfor %}
   </nav>
@@ -21,7 +21,7 @@
     <h2>{{ sec.title }}</h2>
     {% for g in sec.groups %}
     <section class="g-group" id="{{ g.id }}">
-      <h3>{{ g.title }}</h3>
+      {% if g.title %}<h3>{{ g.title }}</h3>{% endif %}
       <div class="albums">
         {% for p in g.places %}
         <a class="album" href="/gallery/{{ p.id }}/">

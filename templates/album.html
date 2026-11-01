@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block main %}
 <article class="prose gallery-page album-page">
-  <p class="crumbs"><a href="/gallery/">{{ gallery_page.title or "Gallery" }}</a> / <a href="/gallery/#{{ group.id }}">{{ group.title }}</a> /</p>
+  <p class="crumbs"><a href="/gallery/">{{ gallery_page.title or "Gallery" }}</a> / <a href="/gallery/#{{ group.id }}">{{ group.title or section.title }}</a> /</p>
   <div class="album-head">
     <h1>{{ album.title }}</h1>
     {% if album.info.date %}<span class="g-date">{{ album.info.date }}</span>{% endif %}
@@ -25,7 +25,7 @@
   {# other albums from the same country / state #}
   {% set others = group.places | rejectattr("id", "equalto", album.id) | list %}
   {% if others %}
-  <h2 class="album-more-title">More from {{ group.title }}</h2>
+  <h2 class="album-more-title">More from {{ group.title or section.title }}</h2>
   <div class="albums">
     {% for p in others %}
     <a class="album" href="/gallery/{{ p.id }}/">

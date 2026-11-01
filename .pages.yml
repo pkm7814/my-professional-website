@@ -225,6 +225,25 @@ content:
     path: data/gallery.yaml
     format: yaml
     fields:
+      - { name: academic_heading, label: "Heading — academic journey (shown first)", type: string }
+      - name: academic
+        label: "Academic journey — albums (e.g. IIT Roorkee, IIT Mandi)"
+        type: object
+        list: { collapsible: { collapsed: true, summary: "{name} ({date})" } }
+        fields:
+          - { name: name, label: "Album name (institution)", type: string, required: true }
+          - { name: date, label: "Period (e.g. 2021 – 2026)", type: string }
+          - { name: event, label: "Role / purpose (e.g. Ph.D.)", type: string }
+          - { name: cover, label: "Album cover photo (optional — otherwise the first photo)", type: image, options: { media: gallery } }
+          - { name: description, label: Description, type: rich-text, options: { format: markdown } }
+          - { name: hidden, label: "Hide", type: boolean }
+          - name: photos
+            label: Photos
+            type: object
+            list: { collapsible: { collapsed: true, summary: "{caption}" } }
+            fields:
+              - { name: image, label: Photo, type: image, options: { media: gallery } }
+              - { name: caption, label: Caption, type: string }
       - { name: international_heading, label: "Heading — international", type: string }
       - { name: india_heading, label: "Heading — India", type: string }
       - name: international

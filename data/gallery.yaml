@@ -1,3 +1,13 @@
+academic_heading: Academic Journey
+academic:
+  - name: IIT Roorkee
+    date: 2021 – 2026
+    event: Ph.D., Geotechnical Engineering
+    hidden: false
+  - name: IIT Mandi
+    date: 2026 – present
+    event: Senior Project Scientist (Postdoctoral)
+    hidden: false
 international_heading: International Travel
 india_heading: India — home country Travel
 international:
@@ -215,14 +225,3 @@ india:
           - image: /gallery-photos/mussoorie-10.jpg
           - image: /gallery-photos/mussoorie-11.jpg
           - image: /gallery-photos/mussoorie-12.jpg
-      - name: IIT Roorkee
-        date: 2021-2026
-        event: During Ph.D.
-        hidden: false
-  - name: Himachal Pradesh
-    hidden: false
-    places:
-      - name: IIT Mandi
-        date: 2026 – present
-        event: During Postdoctoral research
-        hidden: false

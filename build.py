@@ -338,12 +338,16 @@ def _photo_source(ref: str) -> Path | None:
 def build_gallery(out_dir: Path) -> list[dict]:
     data = load_yaml(ROOT / "data" / "gallery.yaml", {}) or {}
     sections, done = [], {}
-    for key, default_title in (("international", "International visits"), ("india", "India — home country visits")):
+    for key, default_title in (("academic", "Academic Journey"), ("international", "International visits"),
+                               ("india", "India — home country visits")):
         groups = []
-        for g in data.get(key) or []:
-            if not g or not g.get("name") or g.get("hidden"):
+        raw = data.get(key) or []
+        if key == "academic":  # a flat list of albums, shown first without country/state headings
+            raw = [{"name": "", "places": raw}]
+        for g in raw:
+            if not g or (key != "academic" and not g.get("name")) or g.get("hidden"):
                 continue
-            gid = f"{key}-{slugify(g['name'])}"
+            gid = f"{key}-{slugify(g['name'])}" if g.get("name") else key
             places = []
             for pl in g.get("places") or []:
                 if not pl or not pl.get("name") or pl.get("hidden"):
@@ -362,7 +366,7 @@ def build_gallery(out_dir: Path) -> list[dict]:
                     res = done[src]
                     photos.append({"full": res["full"], "thumb": res["thumb"],
                                    "w": res["thumb_size"][0], "h": res["thumb_size"][1], "caption": caption,
-                                   "alt": caption or f"{pl['name']}, {g['name']} — photo {i}"})
+                                   "alt": caption or f"{pl['name']} — photo {i}"})
                 cover = None
                 if pl.get("cover") and _photo_source(pl["cover"]):
                     src = _photo_source(pl["cover"])
@@ -374,7 +378,7 @@ def build_gallery(out_dir: Path) -> list[dict]:
                     cover = {k: photos[0][k] for k in ("thumb", "w", "h")}
                 places.append({"id": pid, "title": pl["name"], "info": pl, "photos": photos, "cover": cover})
             if places:
-                groups.append({"id": gid, "title": g["name"], "places": places})
+                groups.append({"id": gid, "title": g["name"], "places": places, "section_title": data.get(f"{key}_heading") or default_title})
         if groups:
             sections.append({"id": key, "title": data.get(f"{key}_heading") or default_title, "groups": groups})
     return sections
@@ -488,8 +492,8 @@ def build(include_drafts=False, strict=False) -> Path:
                 for grp in sec["groups"]:
                     for alb in grp["places"]:
                         write(f"/gallery/{alb['id']}/", "album.html",
-                              page={"title": f"{alb['title']} — {grp['title']}",
-                                    "description": f"Photos from {alb['title']}, {grp['title']}."},
+                              page={"title": f"{alb['title']} — {grp['title'] or sec['title']}",
+                                    "description": f"Photos from {alb['title']}, {grp['title'] or sec['title']}."},
                               album=alb, group=grp, section=sec, gallery_page=meta)
         write(url, template, needs_python=flags["python"], page=meta, content=content, sections=sections,
               needs_plot=flags["plot"], needs_math=has_math,
