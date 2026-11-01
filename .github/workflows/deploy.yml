@@ -27,7 +27,7 @@ jobs:
           persist-credentials: false
           fetch-depth: 0          # full history: the Home page "What's new" box is built from it
 
-      - uses: actions/setup-python@v6
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
           cache: pip
