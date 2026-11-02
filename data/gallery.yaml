@@ -3,7 +3,15 @@ academic:
   - name: IIT Roorkee
     date: 2021 – 2026
     event: Ph.D., Geotechnical Engineering
+    cover: /gallery-photos/iit-roorkee-03.jpg
     hidden: false
+    photos:
+      - image: /gallery-photos/iit-roorkee-03.jpg
+        caption: Receiving the Ph.D. degree at the IIT Roorkee Convocation
+      - image: /gallery-photos/iit-roorkee-01.jpg
+        caption: IIT Roorkee Convocation (दीक्षांत समारोह)
+      - image: /gallery-photos/iit-roorkee-02.jpg
+        caption: IIT Roorkee Convocation
   - name: IIT Mandi
     date: 2026 – present
     event: Senior Project Scientist (Postdoctoral)
